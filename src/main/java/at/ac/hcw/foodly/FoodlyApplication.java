@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FoodlyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FoodlyApplication.class, args);
+		        SpringApplication.run(FoodlyApplication.class, args);
 	}
-
 }
