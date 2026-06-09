@@ -1,6 +1,7 @@
 package at.ac.hcw.foodly.controllers;
 
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,5 @@ public class HomeController {
     @GetMapping
     public String getCooking() {
         return "cooking.html";
-    }
-    @DeleteMapping
-    public void deleteCooking() {
-        //ich könnte n delete handle sein
     }
 }

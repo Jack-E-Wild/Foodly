@@ -2,6 +2,7 @@ package at.ac.hcw.foodly.models;
 
 import at.ac.hcw.foodly.DatabaseUtil;
 import at.ac.hcw.foodly.exceptions.DatabaseException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +12,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+@Repository
 public class IngredientRepository {
+
+    public IngredientModel findById (UUID id){
+        IngredientModel ingredient = new IngredientModel();
+        String sql = "SELECT * FROM ingredients WHERE id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement prStatement = conn.prepareStatement(sql);
+        ) {
+           prStatement.setObject(1, id);
+
+            try (ResultSet rs = prStatement.executeQuery()) {
+                if (rs.next()) {
+
+                    ingredient.setId((UUID) rs.getObject("id"));
+                    ingredient.setIngrName(rs.getString("name"));
+                    ingredient.setFgName(rs.getString("foodgroup"));
+                    // hier restliche attribute von ingredients objekt befüllen, sobald setter vorhanden
+
+                    return ingredient;
+                }
+            }
+
+            return null;
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not retrieve ingredient", e);
+        }
+    }
+
 
     public List<IngredientModel> findAll() {
         List<IngredientModel> ingredients = new ArrayList<>();
