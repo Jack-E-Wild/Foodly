@@ -1,9 +1,52 @@
-body {
-    background-color: #9C9FA1;
-    margin: 40px;
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
     color: #27C8F5;
+    text-align: center;
+}
+
+article {
+    border-radius: 16px;
+    padding: 16px;
+    width: 384px;
+    margin: 8px;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 250px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+#authBt {
+     position: fixed;
+     align: center;
+
+     width: 250px;
+     height: 250px;
+
+     border-radius: 50%;
+     border: none;
+
+     font-size: 32px;
+     color: white;
+     background: green;
+
+     cursor: pointer;
+
+     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 

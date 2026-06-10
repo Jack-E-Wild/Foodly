@@ -3,15 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script type="module" src="index.js"></script>
 </head>
 <body>
-    <h1>Foodly</h1>
-<main>
-    <article>
-        <h2> AAAAAH </h2>
-        <p> aaaaahahahahha </p>
-    </article>
-</main>
+    <header>
+        <h1>Welcome to Foodly!!</h1>
+    </header>
+
+    <nav>
+        <h2> Please log in!  </h2>
+        <p>
+            <button id="authBt">Log in!</button>
+        </p>
+    </nav>
+    <main>
+        <article>
+        </article>
+    </main>
+
+    <footer>
+        <p>Written by Fish & Chips!</p>
+    </footer>
+
+    <dialog id="loginDialog">
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="button-container">
+                <button type="submit">Login</button>
+                <button type="button" id="cancelLogin">Cancel</button>
+            </div>
+
+        </form>
+    </dialog>
+
 </body>
 </html>
