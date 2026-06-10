@@ -26,13 +26,11 @@ public class DatabaseUtil {
                     "name VARCHAR(255) NOT NULL," +
                     "foodgroup VARCHAR(100) NOT NULL," +
                     "icon VARCHAR(100) NOT NULL," +
-                    "proteins INT NOT NULL) " +
-                    "carbohydrates INT NOT NULL) " +
-                    "fibres INT NOT NULL) " +
-                    "fats INT NOT NULL) " +
-                    "water INT NOT NULL) " +
-                    "energy INT NOT NULL) " +
-                    "release_year INT NOT NULL)";
+                    "proteins DOUBLE NOT NULL," +
+                    "carbohydrates DOUBLE NOT NULL," +
+                    "fibres DOUBLE NOT NULL," +
+                    "fats DOUBLE NOT NULL," +
+                    "energy DOUBLE NOT NULL)";
             myStatement.execute(SQLstring);
 
         } catch (SQLException e) {
