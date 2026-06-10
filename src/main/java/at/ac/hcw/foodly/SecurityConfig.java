@@ -11,12 +11,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-
-
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user1 = User.withDefaultPasswordEncoder()
-                .username("jane doe")
+                .username("jane doe") //wir werden hier wahrscheinlich auf emails umstellen müssen
                 .password("123")
                 .roles("USER")
                 .build();
@@ -36,6 +34,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // erlaubt restcalls
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/**", "/error/**").permitAll() //löschen am Ende
                         .requestMatchers("/index.html", "/index.js", "/css/**").permitAll() // startseite muss man anpassen
                         .requestMatchers("/api/public/**", "/").permitAll()                     // andere öffentliche endpunkte
                         .anyRequest().authenticated()                                      // ALLES andere braucht einen Login!
