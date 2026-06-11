@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
     //3. return list?
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/public/search") //TODO: tova change this to /api/search once it works oder so
 public class FDC_SearchController {
     @Autowired
     private FDC_QueryHandler fdcQueryHandler;
