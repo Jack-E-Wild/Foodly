@@ -29,7 +29,7 @@
     </footer>
 
     <dialog id="loginDialog">
-        <form id="loginForm">
+        <form id="loginForm" action="/api/login" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password:</label>
@@ -38,7 +38,6 @@
                 <button type="submit">Login</button>
                 <button type="button" id="cancelLogin">Cancel</button>
             </div>
-
         </form>
     </dialog>
 

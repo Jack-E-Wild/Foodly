@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()                                      // ALLES andere braucht einen Login!
                 )
                 .formLogin(form -> form
+                        .loginPage("/index.html")
                         .loginProcessingUrl("/api/login") // hier her sollte front end login schicken
                         .successHandler((req, res, auth) -> res.setStatus(200))
                         .failureHandler((req, res, exp) -> res.setStatus(401))
