@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/ingredients")
+@RequestMapping("/api/ingredients")
+@CrossOrigin(origins =  "*")
 public class IngredientController {
 
     private IngredientRepository ingredientRepository;
@@ -23,8 +24,11 @@ public class IngredientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<IngredientModel>> getIngredients(){
-        return ResponseEntity.ok(ingredientService.getAllRequest());
+    public <T> ResponseEntity<List<T>> getIngredients(){
+        //for testing
+        return ResponseEntity.ok((List<T>) List.of("Tuna", "Apple", "Sausage"));
+
+        //return ResponseEntity.ok(ingredientService.getAllRequest());
     }
 
     @GetMapping("/{id}")
