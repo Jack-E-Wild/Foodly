@@ -1,4 +1,67 @@
 package at.ac.hcw.foodly.models;
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "dishes")
 public class DishModel {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    //private String name; TODO: Tova leave this until dish saving
+
+    // Many Dishes belong to One User
+    @ManyToOne(fetch = FetchType.LAZY)
+    // LAZY stops Hibernate from loading the whole user every time you just want a dish
+    @JoinColumn(name = "user_id", nullable = false) // Creates 'user_id' foreign key column
+    private UserModel user;
+
+    // This handles the variable ingredients we established previously
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IngredientModel> dishIngredients = new ArrayList<>();
+
+    public DishModel() {
+    }
+
+    /* TODO Tova uncomment when we save/load named dishes
+    public DishModel(String name) {
+        this.name = name;
+    }
+     */
+
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /*
+    //public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    */
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+    public List<IngredientModel> dishIngredients() {
+        return dishIngredients;
+    }
+
+    public void setRecipeIngredients(List<IngredientModel> dishIngredients) {
+        this.dishIngredients = dishIngredients;
+    }
 }
