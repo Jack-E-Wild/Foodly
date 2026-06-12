@@ -1,9 +1,19 @@
 package at.ac.hcw.foodly.models;
 
 
+import jakarta.persistence.*;
+import at.ac.hcw.foodly.models.DishModel;
+
+@Entity
 public class DishIngredient {
-    //irgendeine ID, falls wir jpa verwenden dann @id
-    // private Long id oder UUID id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // This is the "dish" property for the Hibernate database
+    @ManyToOne
+    @JoinColumn(name = "dish_id") // Maps the foreign key column in the DB
+    private DishModel dish;
 
     private String name;
     private double calories;

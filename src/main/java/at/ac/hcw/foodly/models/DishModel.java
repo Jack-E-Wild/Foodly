@@ -57,11 +57,11 @@ public class DishModel {
         this.user = user;
     }
 
-    public List<IngredientModel> dishIngredients() {
+    public List<DishIngredient> dishIngredients() {
         return dishIngredients;
     }
 
-    public void setRecipeIngredients(List<IngredientModel> dishIngredients) {
+    public void setRecipeIngredients(List<DishIngredient> dishIngredients) {
         this.dishIngredients = dishIngredients;
     }
 }
