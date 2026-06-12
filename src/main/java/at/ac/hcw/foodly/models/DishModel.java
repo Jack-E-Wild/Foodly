@@ -23,7 +23,7 @@ public class DishModel {
 
     // This handles the variable ingredients we established previously
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<IngredientModel> dishIngredients = new ArrayList<>();
+    private List<DishIngredient> dishIngredients = new ArrayList<>();
 
     public DishModel() {
     }

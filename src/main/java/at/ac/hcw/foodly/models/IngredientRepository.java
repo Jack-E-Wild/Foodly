@@ -56,7 +56,7 @@ public class IngredientRepository {
                 String ingrName = rsIngredients.getString("name");
                 String fgName = rsIngredients.getString("foodgroup");
                 String fgIcon = rsIngredients.getString("icon");
-                IngredientModel ingredient = new IngredientModel(ingrName, fgName, fgIcon);
+                IngredientModel ingredient = new IngredientModel(ingrName, fgName);
                 ingredient.setId(id);
                 ingredients.add(ingredient);
             }

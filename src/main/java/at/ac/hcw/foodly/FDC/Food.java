@@ -1,8 +1,11 @@
 package at.ac.hcw.foodly.FDC;
 
+import java.util.List;
+
 public class Food {
-    private int fdcId; //unique ID
-    private String description; //food name
+    private Long fdcId; //unique ID
+    private String description;//food name
+    private List<Nutrient> foodNutrients; //nutrient list für makros
     /*
     nutrients:
         nutrientId
@@ -11,11 +14,11 @@ public class Food {
         unitName    G   gramm?
         value   the amount
      */
-    public int getFdcId() {
+    public Long getFdcId() {
         return fdcId;
     }
 
-    public void setFdcId(int fdcId) {
+    public void setFdcId(Long fdcId) {
         this.fdcId = fdcId;
     }
 
@@ -24,5 +27,13 @@ public class Food {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Nutrient> getFoodNutrients() {
+        return foodNutrients;
+    }
+
+    public void setFoodNutrients(List<Nutrient> foodNutrients) {
+        this.foodNutrients = foodNutrients;
     }
 }
