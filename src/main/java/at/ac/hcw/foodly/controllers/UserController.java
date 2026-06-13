@@ -35,6 +35,11 @@ public class UserController {
 
     }
 
+    @GetMapping("/{userId}/gravatar")
+    public String getGravatarURL(@PathVariable Long userId) {
+        return userService.getGravatarURL(userId);
+    }
+
     // POST http://localhost:8080/api/users/1/dishes
     // Payload: {"name": "Spaghetti Carbonara"}
     @PostMapping("/{userId}/dishes")
