@@ -1,5 +1,6 @@
 package at.ac.hcw.foodly.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,7 +16,11 @@ public class FoodgroupModel {
 
 
     @ManyToMany(mappedBy = "foodGroups")
+    @JsonIgnore
     private List<IngredientModel> ingredients;
+
+    public FoodgroupModel() {
+    }
 
     public FoodgroupModel(String fgName, String fgIcon) {
         this.fgName = fgName;

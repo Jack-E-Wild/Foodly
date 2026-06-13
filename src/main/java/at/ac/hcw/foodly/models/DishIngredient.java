@@ -24,6 +24,8 @@ public class DishIngredient {
 
     private double amountInGrams;
 
+    public DishIngredient() {
+    }
 
     public DishIngredient(String name, double calories, double fibers, double protein, double carbs, double fats, double amountInGrams) {
         this.name = name;

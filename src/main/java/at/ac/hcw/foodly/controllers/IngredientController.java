@@ -2,12 +2,10 @@ package at.ac.hcw.foodly.controllers;
 
 import at.ac.hcw.foodly.models.IngredientModel;
 import at.ac.hcw.foodly.models.IngredientRepository;
-import at.ac.hcw.foodly.services.IngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/ingredients")
@@ -16,24 +14,24 @@ public class IngredientController {
 
     private IngredientRepository ingredientRepository;
 
-    private IngredientService ingredientService;
 
-    public IngredientController(IngredientRepository ingredientRepository, IngredientService ingredientService) {
+    public IngredientController(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
-        this.ingredientService = ingredientService;
     }
 
     @GetMapping
-    public <T> ResponseEntity<List<T>> getIngredients(){
+    public ResponseEntity<List<IngredientModel>> getIngredients(){
         //for testing
-        return ResponseEntity.ok((List<T>) List.of("Tuna", "Apple", "Sausage"));
+        //return ResponseEntity.ok((List<T>) List.of("Tuna", "Apple", "Sausage"));
 
-        //return ResponseEntity.ok(ingredientService.getAllRequest());
+        return ResponseEntity.ok(ingredientRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<IngredientModel> getIngredient(@PathVariable UUID id){
-        return ResponseEntity.ok(ingredientService.getIngredientById(id));
+    public ResponseEntity<IngredientModel> getIngredient(@PathVariable Long id){
+        return ingredientRepository.findById(id)
+                .map(ingredient -> ResponseEntity.ok(ingredient))
+                .orElse(ResponseEntity.notFound().build());
     }
 
 
