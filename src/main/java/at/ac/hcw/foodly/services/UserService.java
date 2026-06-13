@@ -15,19 +15,29 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserModel saveUser(UserModel user){
+    public UserModel saveUser(UserModel user) {
         return userRepository.save(user);
     }
 
-    public List<UserModel> getAllUsers(){
+    public List<UserModel> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<UserModel> getUserById(Long id){
+    public Optional<UserModel> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    public void deleteUserById(Long id){
+    public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public String getGravatarURL(Long id) {
+        String email = getUserById(id)
+                .map(UserModel::getEmail)
+                .map(String::toLowerCase)
+                .orElse("monsterid");
+        String hash = GravatarService.sha256Hex(email);
+        String gravatarURL = "https://gravatar.com/avatar/" + hash;
+        return gravatarURL;
     }
 }
