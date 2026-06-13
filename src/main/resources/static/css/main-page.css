@@ -1,0 +1,40 @@
+.board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+#cookingBoardBt {
+    width: 280px;
+    height: 160px;
+    border-radius: 20px;
+
+    background-color: #D2B48C;
+    border: 4px solid #B59975;
+
+    font-size: 28px;
+    font-weight: bold;
+    color: #4A3525;
+    font-family: 'Arial Black', sans-serif;
+    text-transform: uppercase;
+
+    box-shadow:
+        inset 0 0 0 8px #C4A47C,
+        0 8px 16px rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+#cookingBoardBt:hover {
+    background-color: #DBBE96;
+}
+
+#cookingBoardBt:active {
+    transform: scale(0.96);
+    box-shadow:
+        inset 0 0 0 8px #C4A47C,
+        0 4px 8px rgba(0, 0, 0, 0.2);
+}

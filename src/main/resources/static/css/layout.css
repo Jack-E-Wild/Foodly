@@ -1,28 +1,74 @@
+/* 1. Für Smartphone Ansicht */
 body {
   display: grid;
-  grid-template-rows: 92px 1fr 64px;
-  grid-template-columns: 192px auto;
-  grid-template-areas: "h h"
-                       "n m"
-                       "f f";
+  /* Für Handyansicht: Header oben, Main mitte und scrollt, Footer unten*/
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-columns: 1fr;
+  grid-template-areas: "h"
+                       "m"
+                       "f";
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  font-family: sans-serif;
+  overflow: hidden; /* Beim scrollen wird nicht die ganze Seite beeinflusst */
 }
 
 header {
   grid-area: h;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav {
-  grid-area: n;
+  display: none; /* Seitenleiste wird am Smartphone versteckt oder gar nicht genutzt */
 }
 
 main {
   grid-area: m;
-  overflow-y: auto;
+  overflow-y: auto; /* nur Inhalt in der Mitte scrollt. */
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 footer {
   grid-area: f;
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* 2. Laptop, Computer bildschirm Ansicht -- Anpassungen */
+@media (min-width: 768px) {
+    body {
+        grid-template-rows: 92px 1fr 64px;
+        grid-template-columns: 192px auto;
+        grid-template-areas: "h h"
+                             "n m"
+                             "f f";
+    }
+
+    header {
+        background-color: #FFF4BD;
+    }
+
+    nav {
+        grid-area: n;
+        display: block; /* Macht die Seitenleiste auf großen Bildschirmen wieder sichtbar */
+        background-color: #f7f7f7;
+        padding: 15px;
+        border-right: 1px solid #e0e0e0;
+    }
+
+    main {
+        padding: 32px; /* Mehr Platz auf großen Bildschirmen */
+    }
+
+    footer {
+        text-align: center;
+        justify-content: center;
+    }
 }

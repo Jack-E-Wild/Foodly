@@ -17,12 +17,20 @@ cancelLogin.addEventListener('click', () => {
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Verhindert das normale Neuladen der Seite
 
-    const formData = new FormData(this);
+    // 1. Die Eingabewerte aus dem HTML-Formular holen
+    const usernameInput = document.getElementById('username').value;
+    const passwordInput = document.getElementById('password').value;
+
+    //searchParams erstellen für Springboot
+    const params = new URLSearchParams();
+    params.append('username', usernameInput);
+    params.append('password', passwordInput);
+
 
     // Login-Anfrage an die API senden
     fetch('/api/login', {
         method: 'POST',
-        body: formData
+        body: params
     })
     .then(response => {
         if (response.ok) {
