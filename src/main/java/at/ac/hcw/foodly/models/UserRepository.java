@@ -5,4 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
+
+    // "SELECT * FROM users WHERE email = ?"
+    UserModel findByEmail(String email);
 }
