@@ -7,15 +7,33 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/main-page.css">
+    <script type="module" src="main-page.js"></script>
 </head>
 <body>
     <header>
         <h1>Foodly</h1>
     </header>
     <main>
-        <div class="board-container">
-            <button id="cookingBoardBt">Let's cook!</button>
-        </div>
+        <section id="screen-start" class="app-start active">
+            <div class="board-container">
+                <button id="cookingBoardBt">Let's cook!</button>
+            </div>
+        </section>
+
+        <section id="screen-groups" class="app-screen">
+            <div class="groups-grid" >
+                <button class="group-card" data-id="1" data-group="carbs">Carbs</button>
+                <button class="group-card" data-id="2" data-group="proteins">Proteins</button>
+                <button class="group-card" data-id="3" data-group="fats">Fats</button>
+                <button class="group-card" data-id="4" data-group="fibers">Fibers</button>
+            </div>
+        </section>
+
+        <section id="screen-cooking" class="app-screen">
+            <h2>What do you want to add?</h2>
+            <div id="ingredients-list"></div>
+            <button id="backToGroupsBt">Cancel</button>
+        </section>
     </main>
     <footer>
         <p>Fish & Chips</p>

@@ -34,8 +34,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .then(response => {
         if (response.ok) {
-            // HIER PASSIERT DIE WEITERLEITUNG:
-            // Wenn der Login erfolgreich war, schicken wir den User zur main-page.html
+            // Weiterleitung --> Wenn der Login erfolgreich war, schicken wir den User zur main-page.html
             window.location.href = '/main-page.html';
         } else {
             alert('Login fehlgeschlagen!');

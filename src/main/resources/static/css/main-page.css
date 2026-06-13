@@ -1,3 +1,23 @@
+/* Standardmäßig ALLE Screens und die Start-Sektion ausblenden */
+ .app-screen, .app-start {
+     display: none !important;
+     width: 100%;
+     height: 100%;
+ }
+
+ /* Nur der Screen, der die CSS-Klasse "active" hat, wird angezeigt */
+ .app-screen.active, .app-start.active {
+     display: block !important;
+ }
+
+ /* 2. Screen der foodgroups (Tippfehler bei grid-template korrigiert) */
+ .groups-grid {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 20px;
+     padding: 20px;
+ }
+/*1. screen Ansicht*/
 .board-container {
     display: flex;
     justify-content: center;
@@ -37,4 +57,12 @@
     box-shadow:
         inset 0 0 0 8px #C4A47C,
         0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/*2. Screen der foodgroups*/
+.groups-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
 }
