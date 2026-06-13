@@ -48,6 +48,13 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/api/logout") //front end logout enpoint
                         .logoutSuccessHandler((req, res, auth) -> res.setStatus(200))
+                ).headers(headers -> headers
+                        // 1. Disable the old X-Frame-Options header
+                        .frameOptions(frameOptions -> frameOptions.disable())
+                        // 2. Add Content Security Policy to allow specific parent domains
+                        .contentSecurityPolicy(csp -> csp
+                                .policyDirectives("frame-ancestors 'self' https://trusted-parent-domain.com")
+                        )
                 );
 
         return http.build();
