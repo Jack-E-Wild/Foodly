@@ -1,12 +1,28 @@
 package at.ac.hcw.foodly.models;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name= "food_groups")
 public class FoodgroupModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String fgName;
     private String fgIcon;
 
-    public FoodgroupModel(String fgName, String fgIcon) {
 
+    @ManyToMany(mappedBy = "foodGroups")
+    private List<IngredientModel> ingredients;
+
+    public FoodgroupModel(String fgName, String fgIcon) {
+        this.fgName = fgName;
+        this.fgIcon = fgIcon;
     }
+
+    public Long getId () {return id;}
 
     public void setFgName(String fgName) {
         this.fgName = fgName;
@@ -24,5 +40,11 @@ public class FoodgroupModel {
         return fgIcon;
     }
 
+    public List<IngredientModel> getIngredients() {
+        return ingredients;
+    }
 
+    public void setIngredients(List<IngredientModel> ingredients) {
+        this.ingredients = ingredients;
+    }
 }

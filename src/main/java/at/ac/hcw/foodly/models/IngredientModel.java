@@ -2,6 +2,8 @@ package at.ac.hcw.foodly.models;
 
 import jakarta.persistence.*;
 import at.ac.hcw.foodly.models.DishModel;
+
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +22,15 @@ public class IngredientModel {
     @ManyToOne
     @JoinColumn(name = "dish_id") // Maps the foreign key column in the DB
     private DishModel dish;
+
+    //This is the "foodGroups" prperty Hibernate is looking for
+    @ManyToMany
+    @JoinTable(
+            name = "ingredient_food_group", // Name der Join Zwischentabelle
+            joinColumns = @JoinColumn(name = "ingredient_id"),
+            inverseJoinColumns = @JoinColumn(name = "food_group_id")
+    )
+    private List<FoodgroupModel> foodGroups;
 
     public IngredientModel(){
         this.id = UUID.randomUUID();
@@ -103,5 +114,13 @@ public class IngredientModel {
 
     public void setDish(DishModel dish) {
         this.dish = dish;
+    }
+
+    public List<FoodgroupModel> getFoodGroups() {
+        return foodGroups;
+    }
+
+    public void setFoodGroups(List<FoodgroupModel> foodGroups) {
+        this.foodGroups = foodGroups;
     }
 }
