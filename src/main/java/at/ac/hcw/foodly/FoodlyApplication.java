@@ -10,6 +10,6 @@ public class FoodlyApplication {
         SpringApplication.run(FoodlyApplication.class, args);
 
         //create the database
-        DatabaseUtil.createTable();
+        //DatabaseUtil.createTable();
     }
 }
