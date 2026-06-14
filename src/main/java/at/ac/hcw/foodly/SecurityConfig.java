@@ -69,20 +69,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-    // explicitly allow your frontend port
-    @Bean
-    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
-        org.springframework.web.cors.CorsConfiguration corsConfig = new org.springframework.web.cors.CorsConfiguration();
-        corsConfig.setAllowedOrigins(java.util.List.of("http://127.0.0.1:5500", "http://localhost:8080"));
-        corsConfig.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        corsConfig.setAllowedHeaders(java.util.List.of("*"));
-        corsConfig.setAllowCredentials(true); // Crucial for session cookies
-
-        org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
-        return source;
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
