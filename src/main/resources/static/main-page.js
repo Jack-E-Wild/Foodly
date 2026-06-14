@@ -5,14 +5,14 @@ const backToGroupsBt = document.getElementById('backToGroupsBt');
 const pageTitle = document.querySelector('header h1');
 const ingredientsListDiv = document.getElementById('ingredients-list')
 
-//allr screens in einer liste speichern
+//alle screens in einer liste speichern
 const screens = {
     start: document.getElementById('screen-start'),
     groups: document.getElementById('screen-groups'),
     cooking: document.getElementById('screen-cooking')
 };
 
-//Zrntrale Funktion zum wechseln der Screens
+//Zentrale Funktion zum wechseln der Screens
 function showScreen(screenKey, titleText) {
     //Zuerst bei allen Screens die active-Klassen entfernen
     Object.values(screens).forEach(screen => {
@@ -36,7 +36,7 @@ function fetchIngredients(groupId, groupName) {
     ingredientsListDiv.innerHTML = "<p>Zutaten werden geladen...</p>";
 
     //Der GET request
-    fetch(`/api/foodgroups/${groupId}/ingredients`, {
+    fetch(`/api/ingredients/group/${groupId}`, {
         method: 'GET'
     })
     .then(response => {
@@ -73,28 +73,73 @@ function fetchIngredients(groupId, groupName) {
      });
 }
 
+// Foodgroups aus dem backend laden und Buttons erstellen
+function fetchFoodGroups() {
+    const container = document.getElementById("groups-container");
+    if (!container) return;
+
+    fetch("/api/foodgroups")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Food Groups could not be loaded.");
+                }
+                return response.json();
+            })
+            .then(groups => {
+            container.innerHTML = ""; // Ladetext löschen
+
+            groups.forEach(group => {
+            //Buttons erstellen
+            const button = document.createElement("button");
+            button.className = "group-card";
+            button.textContent = group.fgName;
+
+            //IDs und Namen kommen als Attribute rein
+            button.setAttribute("data-id", group.id);
+            button.setAttribute("data-group", group.fgName.toLowerCase());
+
+            //Klick-Event-Listener an den neu erstellten Button hängen
+            button.addEventListener('click', () => {
+            // Screen wechseln
+            showScreen('cooking', group.fgName.toUpperCase());
+            // Ingredients mit ID laden
+            fetchIngredients(group.id, group.fgName);
+            });
+
+            //fertigen Button ins leere Grid im HTML einfügen
+            container.appendChild(button);
+            });
+            })
+            .catch(error => {
+            console.error("Error when calling for th Food Groups:", error);
+            container.innerHTML = "<p style=' color: red;'>Error: Food Groups could not be loaded.</p>";
+            });
+            }
+
+
 //EventListener
 
-//auf Let's cook Llicken -> wechselt zu den Foodgroups
+//auf Let's cook Klicken -> wechselt zu den Foodgroups und lädt die Gruppen
 if (cookingBoardBt) {
     cookingBoardBt.addEventListener('click', () => {
         showScreen('groups', 'Food Groups');
+        fetchFoodGroups();
     });
 }
 
-//Klciken auf eine Foodgroup
-document.querySelectorAll('.group-card').forEach(button => {
-    button.addEventListener('click', (event) => {
-        const groupId = event.target.getAttribute('data-id');
-        const groupName = event.target.getAttribute('data-group');
-
-        // 1. Screen wechseln
-        showScreen('cooking', groupName.toUpperCase());
-
-        // 2. Daten live aus dem Backend holen
-        fetchIngredients(groupId, groupName);
-    });
-});
+////Klicken auf eine Foodgroup
+//document.querySelectorAll('.group-card').forEach(button => {
+//    button.addEventListener('click', (event) => {
+//        const groupId = event.target.getAttribute('data-id');
+//        const groupName = event.target.getAttribute('data-group');
+//
+//        // 1. Screen wechseln
+//        showScreen('cooking', groupName.toUpperCase());
+//
+//        // 2. Daten live aus dem Backend holen
+//        fetchIngredients(groupId, groupName);
+//    });
+//});
 
 //Button um zurück zu klicken
 if (backToGroupsBt) {
