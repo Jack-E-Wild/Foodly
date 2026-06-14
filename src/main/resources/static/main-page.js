@@ -36,7 +36,7 @@ function fetchIngredients(groupId, groupName) {
     ingredientsListDiv.innerHTML = "<p>Zutaten werden geladen...</p>";
 
     //Der GET request
-    fetch(`/api/ingredients/group/${groupId}`, {
+    fetch(`/api/foodgroups/${groupId}/ingredients`, {
         method: 'GET'
     })
     .then(response => {
