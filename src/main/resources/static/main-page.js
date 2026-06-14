@@ -1,7 +1,8 @@
 // Elemente aus der html datei hole
 const cookingBoardBt = document.getElementById('cookingBoardBt');
-const backToGroupsBt = document.getElementById('backToGroupsBt');
 
+const universalBackBt = document.getElementById('universalBackBt');
+let screenHistory = []; // Damit er weiß wohin zurück
 const amountDialog = document.getElementById('amountDialog');
 const modalIngredientName = document.getElementById('modalIngredientName');
 const modalGramInput = document.getElementById('modalGramInput');
@@ -22,7 +23,15 @@ const screens = {
 };
 
 //Zentrale Funktion zum wechseln der Screens
-function showScreen(screenKey, titleText) {
+function showScreen(screenKey, titleText, isBackAction = false) {
+    // Bevor wir wechseln, Verlauf merken
+    const currentActiveScreen = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
+    if (!isBackAction && currentActiveScreen && currentActiveScreen !== screenKey && screenKey !== 'start') {
+    screenHistory.push(currentActiveScreen);
+    } else if (screenKey === 'start') {
+    screenHistory = []; // Verlauf löschen, wenn wir ganz am Anfang sind
+    }
+
     //Zuerst bei allen Screens die active-Klassen entfernen
     Object.values(screens).forEach(screen => {
         if(screen) screen.classList.remove('active');
@@ -37,6 +46,11 @@ function showScreen(screenKey, titleText) {
     if (pageTitle) {
         pageTitle.innerText = titleText;
     }
+
+    // Back Button auf Startseite ausblenden
+        if (universalBackBt) {
+            universalBackBt.style.display = screenHistory.length > 0 ? "block" : "none";
+        }
 }
 
 //Zutaten für eine bestimmte group laden
@@ -162,11 +176,18 @@ if (cookingBoardBt) {
 //    });
 //});
 
-//Button um zurück zu klicken
-if (backToGroupsBt) {
-    backToGroupsBt.addEventListener('click', () => {
-       showScreen('groups', 'Food Groups');
-    });
+//Back Button
+if (universalBackBt) {
+universalBackBt.addEventListener('click', () => {
+if (screenHistory.length > 0) {
+const previousScreen = screenHistory.pop(); //Letzter Screen ausn Verlauf
+
+let prevTitle = 'Foodly';
+if (previousScreen === 'groups') prevTitle = 'Food Groups';
+
+showScreen(previousScreen, prevTitle, true);
+}
+});
 }
 
 // Wenn man im Popup auf Cancel klickt, schließt es sich einfach
