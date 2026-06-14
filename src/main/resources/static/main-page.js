@@ -295,7 +295,7 @@ if (potAddMoreBt) {
     showScreen('cooking', 'SEARCH RESULTS');
 
     // SEARCH endpoint
-    fetch('/api/public/search')
+    fetch('/api/search')
     .then(response => response.json())
     .then(foodItems => {
     //Liste leeren und FDC-Ergebnisse einbaun
