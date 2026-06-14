@@ -78,7 +78,7 @@ registerForm.addEventListener('submit', function(event) {
     const formObject = Object.fromEntries(formData.entries());
 
     //Register anfrage an die Api schicken
-    fetch('/api/user/register', {
+    fetch('/api/users/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'  //sagt dem BE, dass json kommt

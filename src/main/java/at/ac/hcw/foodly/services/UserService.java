@@ -50,11 +50,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public String getGravatarURL(Long id) {
-        String email = getUserById(id)
-                .map(UserModel::getEmail)
-                .map(String::toLowerCase)
-                .orElse("monsterid");
+    public String getGravatarURL(String email) {
+        email.toLowerCase();
         String hash = GravatarService.sha256Hex(email);
         String gravatarURL = "https://gravatar.com/avatar/" + hash;
         return gravatarURL;
