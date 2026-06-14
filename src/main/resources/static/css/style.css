@@ -17,30 +17,29 @@ article {
     margin: 8px;
 }
 
-#loginForm {
+#loginForm, #registerForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 250px;
 }
 
-.button-container {
+.welcome-buttons {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
 
 
-.login-container {
+.login-welcome-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
     width: 100%;
 }
-#authBt {
+#authBt, #registerBt{
     width: 180px;
     height: 180px;
 
@@ -59,6 +58,6 @@ article {
     transition: transform 0.1s ease;
 }
 
-#authBt:active {
+#authBt:active, #registerBt:active {
     transform: scale(0.95);
 }
