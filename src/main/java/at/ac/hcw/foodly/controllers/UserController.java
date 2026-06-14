@@ -3,10 +3,14 @@ package at.ac.hcw.foodly.controllers;
 import at.ac.hcw.foodly.models.UserModel;
 import at.ac.hcw.foodly.models.DishModel;
 import at.ac.hcw.foodly.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,9 +39,15 @@ public class UserController {
 
     }
 
-    @GetMapping("/{userId}/gravatar")
-    public String getGravatarURL(@PathVariable Long userId) {
-        return userService.getGravatarURL(userId);
+    @GetMapping("/avatar")
+    public ResponseEntity<?> getGravatarURL(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No active session");
+        }
+        String avatarURL = userService.getGravatarURL(principal.getName());
+        Map<String, Object> profilePic = new HashMap<>();
+        profilePic.put("avatar", avatarURL);
+        return ResponseEntity.ok(profilePic);
     }
 
     // POST http://localhost:8080/api/users/1/dishes
