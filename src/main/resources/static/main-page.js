@@ -3,6 +3,7 @@ const cookingBoardBt = document.getElementById('cookingBoardBt');
 
 const logoutBt = document.getElementById('logoutBt');
 const universalBackBt = document.getElementById('universalBackBt');
+const universalNextBt = document.getElementById('universalNextBt');
 const globalSearchInput = document.getElementById('globalSearchInput');
 let screenHistory = []; // Damit er weiß wohin zurück
 //Modal Elemente
@@ -16,6 +17,7 @@ let selectedIngredient = null;
 const goToPotBt = document.getElementById('goToPotBt');
 const goToStatsBt = document.getElementById('goToStatsBt');
 const cookingToPotBt = document.getElementById('cookingToPotBt');
+const userAvatar = document.getElementById('userAvatar');
 
 // Wir holen das h1-Element direkt aus dem Header, da es keine ID hat
 const pageTitle = document.querySelector('header h1');
@@ -29,14 +31,37 @@ const screens = {
     cooking: document.getElementById('screen-cooking'),
 };
 
+//Funktion zum Laden des Avatars
+function loadUserAvatar() {
+    // GET-Request an den neuen, sauberen Endpunkt
+    fetch('/api/users/avatar', {
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Avatar konnte nicht geladen werden');
+        }
+        return response.json(); // Erwartet: { "avatar": "https://..." }
+    })
+    .then(data => {
+        if (data && data.avatar && userAvatar) {
+            userAvatar.src = data.avatar; // Die Gravatar-URL ins <img> Tag klatschen
+            userAvatar.style.display = "block"; // Bild sichtbar machen
+        }
+    })
+    .catch(error => {
+        console.error("Fehler beim Laden des Gravatars:", error);
+    });
+}
+
 //Zentrale Funktion zum wechseln der Screens
 function showScreen(screenKey, titleText, isBackAction = false) {
     // Bevor wir wechseln, Verlauf merken
     const currentActiveScreen = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
     if (!isBackAction && currentActiveScreen && currentActiveScreen !== screenKey && screenKey !== 'start') {
-    screenHistory.push(currentActiveScreen);
+        screenHistory.push(currentActiveScreen);
     } else if (screenKey === 'start') {
-    screenHistory = []; // Verlauf löschen, wenn wir ganz am Anfang sind
+        screenHistory = []; // Verlauf löschen, wenn wir ganz am Anfang sind
     }
 
     //Zuerst bei allen Screens die active-Klassen entfernen
@@ -55,14 +80,20 @@ function showScreen(screenKey, titleText, isBackAction = false) {
     }
 
     // Back Button auf Startseite ausblenden
-        if (universalBackBt) {
-            universalBackBt.style.display = screenHistory.length > 0 ? "block" : "none";
-        }
+    if (universalBackBt) {
+        universalBackBt.style.display = screenHistory.length > 0 ? "block" : "none";
+    }
+
+    //Next Button ein-/ausblenden
+    if (universalNextBt) {
+        universalNextBt.style.display = (screenKey === 'start' || screenKey === 'groups' || screenKey === 'cooking') ? "block" : "none";
+    }
+
 
     // Suchfeld auf Startseite ausblenden
-        if (globalSearchInput) {
+    if (globalSearchInput) {
         globalSearchInput.style.display = screenKey !== 'start' ? "block" : "none";
-        }
+    }
 }
 
 //Zutaten für eine bestimmte group laden
@@ -218,7 +249,27 @@ if (universalBackBt) {
             showScreen(previousScreen, prevTitle, true);
         }
     });
-    }
+}
+
+//Next Button
+if (universalNextBt) {
+    universalNextBt.addEventListener('click', () => {
+        // Finden, welcher Screen gerade aktiv ist
+        const currentScreenKey = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
+
+        if (currentScreenKey === 'start') {
+            // Von Start geht es zu den Gruppen
+            showScreen('groups', 'Food Groups');
+            fetchFoodGroups(); // Lädt die Gruppen direkt mit auf
+        } else if (currentScreenKey === 'groups') {
+            // Von Gruppen geht es zur Koch-Anzeige
+            showScreen('cooking', 'COOKING');
+        } else if (currentScreenKey === 'cooking') {
+            //Wenn wir auf der Cooking-Seite "Weiter" klicken, springen wir zur pot.html!
+            window.location.href = '/pot.html';
+        }
+    });
+}
 
 // Wenn man im Popup auf Cancel klickt, schließt es sich einfach
 if (modalCancelBt && amountDialog) {
@@ -339,5 +390,8 @@ if (urlParams.get('screen') === 'groups') {
     showScreen('groups', 'Food Groups');
     fetchFoodGroups();
 } else {
+    // Beim Laden der Seite direkt den Avatar des Session-Users holen
+    loadUserAvatar();
+    //
     showScreen('start', 'Foodly');
 }

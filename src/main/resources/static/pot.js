@@ -2,6 +2,23 @@ const potIngredientsContainer = document.getElementById('pot-ingredients-contain
 const potAddMoreBt = document.getElementById('potAddMoreBt');
 const potToStatsBt = document.getElementById('potToStatsBt');
 const potBackBt = document.getElementById('potBackBt');
+const userAvatar = document.getElementById('userAvatar');
+
+//avatar laden
+function loadUserAvatar() {
+    fetch('/api/users/avatar', { method: 'GET' })
+    .then(response => {
+        if (!response.ok) throw new Error('Avatar konnte nicht geladen werden');
+        return response.json();
+    })
+    .then(data => {
+        if (data && data.avatar && userAvatar) {
+            userAvatar.src = data.avatar;
+            userAvatar.style.display = "block";
+        }
+    })
+    .catch(error => console.error("Fehler beim Laden des Gravatars:", error));
+}
 
 function loadPotUI() {
     // Zutaten aus dem localStorage holen, falls keine da sind leeres Array nutzen
@@ -46,3 +63,4 @@ potBackBt.addEventListener('click', () => {
 
 // Beim Laden der Seite direkt ausführen
 loadPotUI();
+loadUserAvatar();

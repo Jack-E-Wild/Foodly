@@ -1,3 +1,28 @@
+/*header styling mit avatar*/
+header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; /* Schiebt Suche und Avatar ganz nach rechts */
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%; /* Macht das Bild kreisrund */
+    border: 2px solid #b59975;
+    object-fit: cover;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
 /* Standardmäßig ALLE Screens und die Start-Sektion ausblenden */
  .app-screen, .app-start {
      display: none !important;
@@ -131,4 +156,18 @@
 
 .menu-btn-pot:active, .menu-btn-stats:active {
     transform: scale(0.97);
+}
+
+.next-bt {
+    padding: 8px 14px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.1s ease;
+}
+
+.next-bt:active {
+    transform: scale(0.95);
 }
