@@ -3,6 +3,7 @@ const cookingBoardBt = document.getElementById('cookingBoardBt');
 
 const logoutBt = document.getElementById('logoutBt');
 const universalBackBt = document.getElementById('universalBackBt');
+const globalSearchInput = document.getElementById('globalSearchInput');
 let screenHistory = []; // Damit er weiß wohin zurück
 //Modal Elemente
 const amountDialog = document.getElementById('amountDialog');
@@ -57,6 +58,11 @@ function showScreen(screenKey, titleText, isBackAction = false) {
     // Back Button auf Startseite ausblenden
         if (universalBackBt) {
             universalBackBt.style.display = screenHistory.length > 0 ? "block" : "none";
+        }
+
+    // Suchfeld auf Startseite ausblenden
+        if (globalSearchInput) {
+        globalSearchInput.style.display = screenKey !== 'start' ? "block" : "none";
         }
 }
 
@@ -235,7 +241,7 @@ if (universalBackBt) {
             showScreen(previousScreen, prevTitle, true);
         }
     });
-}
+    }
 
 // Wenn man im Popup auf Cancel klickt, schließt es sich einfach
 if (modalCancelBt && amountDialog) {
@@ -273,6 +279,64 @@ if (modalConfirmBt && amountDialog) {
 if (potAddMoreBt) {
     potAddMoreBt.addEventListener('click', () => {
         showScreen('groups', 'Food Groups');
+    });
+}
+
+    //Search für die Ingredient Buttons
+    if (globalSearchInput) {
+    globalSearchInput.addEventListener('input', (event) => {
+    const searchTerm = event.target.value.toLowerCase().trim();
+
+    // FDC-Daten bei Group holen
+    const currentScreenKey = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
+    if (currentScreenKey === 'groups' && searchTerm.length > 2) {
+
+    // in die passende Foodgroup wechselnn mit filter
+    showScreen('cooking', 'SEARCH RESULTS');
+
+    // SEARCH endpoint
+    fetch('/api/public/search')
+    .then(response => response.json())
+    .then(foodItems => {
+    //Liste leeren und FDC-Ergebnisse einbaun
+    ingredientsListDiv.innerHTML = "";
+
+    const container = document.createElement('div');
+    container.className = "ingredients-buttons-grid";
+
+    foodItems.forEach(item => {
+    const button = document.createElement('button');
+    button.className = "ingredient-card-bt";
+    button.innerText = item.description;
+
+    button.addEventListener('click', () => {
+    selectedIngredient = { ingrName: item.description };
+    modalIngredientName.innerText = item.description;
+    modalGramInput.value = "";
+    amountDialog.showModal();
+    });
+    container.appendChild(button);
+    });
+    ingredientsListDiv.appendChild(container);
+    });
+    }
+
+
+    else {
+    //Ingredeitn Buttons holen
+    const ingredientButtons = document.querySelectorAll('.ingredient-card-bt');
+
+    ingredientButtons.forEach(button => {
+    const ingredientName = button.innerText.toLowerCase();
+
+    // Verstecke nicht gesuchtes
+    if (ingredientName.includes(searchTerm)) {
+    button.style.display = ""; // sichtbar
+    } else {
+    button.style.display = "none"; // ausgeblendet
+    }
+    });
+    }
     });
 }
 
