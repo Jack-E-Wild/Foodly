@@ -1,5 +1,6 @@
 package at.ac.hcw.foodly.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class UserModel {
     // One User can have Many Dishes
     // 'mappedBy = "user"' tells JPA that the 'user' field in the Dish class owns the relationship
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<DishModel> dishes = new ArrayList<>();
 
     public UserModel() {

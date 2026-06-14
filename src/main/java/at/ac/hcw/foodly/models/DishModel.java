@@ -1,5 +1,6 @@
 package at.ac.hcw.foodly.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class DishModel {
     // Many Dishes belong to One User
     @ManyToOne(fetch = FetchType.LAZY)
     // LAZY stops Hibernate from loading the whole user every time you just want a dish
-    @JoinColumn(name = "user_id", nullable = false) // Creates 'user_id' foreign key column
+    @JoinColumn(name = "user_id", nullable = false)// Creates 'user_id' foreign key column
+    @JsonIgnore
     private UserModel user;
 
     // This handles the variable ingredients we established previously

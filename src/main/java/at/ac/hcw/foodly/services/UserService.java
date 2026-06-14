@@ -2,6 +2,7 @@ package at.ac.hcw.foodly.services;
 
 import at.ac.hcw.foodly.models.UserModel;
 import at.ac.hcw.foodly.models.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,14 @@ public class UserService {
 
     public List<UserModel> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public UserModel findByEmail(String email) {
+        UserModel user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new EntityNotFoundException("User mit der E-Mail " + email + " nicht gefunden");
+        }
+        return user;
     }
 
     public Optional<UserModel> getUserById(Long id) {

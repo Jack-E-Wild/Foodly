@@ -1,6 +1,7 @@
 package at.ac.hcw.foodly.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,10 +13,12 @@ public class DishIngredient {
     // This is the "dish" property for the Hibernate database
     @ManyToOne
     @JoinColumn(name = "dish_id") // Maps the foreign key column in the DB
+    @JsonIgnore
     private DishModel dish;
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id", nullable = true)
+    @JsonIgnore
     private IngredientModel ingredient;
 
     private String dName;
@@ -45,6 +48,11 @@ public class DishIngredient {
     public DishIngredient(IngredientModel ingredient, double amountInGrams){
         this.ingredient = ingredient;
         this.amountInGrams = amountInGrams;
+    }
+
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -103,9 +111,6 @@ public class DishIngredient {
         this.amountInGrams = amountInGrams;
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public DishModel getDish() {
         return dish;

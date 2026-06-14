@@ -3,6 +3,7 @@ package at.ac.hcw.foodly.services;
 import at.ac.hcw.foodly.models.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,20 +88,27 @@ public class DishService {
         return dishRepository.save(dish);
     }
 
+    @Transactional
+    public void deleteDish(Long id) {
+
+        if (!dishRepository.existsById(id)) {
+            throw new EntityNotFoundException("Dish not found");
+        }
+
+        dishRepository.deleteById(id);
+    }
+
 
     //MAKRO Berechnungen
 
-    public double calculateTotalAmountCalories (Long dishId){
-        DishModel dish = dishRepository.findById(dishId).orElseThrow(()-> new EntityNotFoundException("Dish not found"));
+    public double calculateTotalAmountCalories (DishModel dish){
 
         return dish.getDishIngredients().stream()
                 .mapToDouble(dIng -> (dIng.getCalories() * dIng.getAmountInGrams()) / 100.0)
                 .sum();
     }
 
-    public Map<String, Double> calculateMacroPercentage (Long dishId){
-        DishModel dish = dishRepository.findById(dishId).orElseThrow(()-> new EntityNotFoundException("Dish not found"));
-
+    public Map<String, Double> calculateMacroPercentage (DishModel dish){
         double totalProteins = 0;
         double totalFibers = 0;
         double totalCarbs = 0;
