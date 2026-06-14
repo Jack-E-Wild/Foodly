@@ -66,3 +66,34 @@
     gap: 20px;
     padding: 20px;
 }
+
+/* Die Zutaten-Buttons untereinander anordnen */
+.ingredients-buttons-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 300px;
+    margin: 0 auto 24px auto;
+}
+
+/* Den Zutaten-Buttons ein Design geben*/
+.ingredient-card-bt {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.ingredient-card-bt:hover {
+    background-color: #e0e0e0; /* Effekt beim drüberfahrn */
+}
+
+/* Abstand über dem Cancel-Button erzwingen */
+#backToGroupsBt {
+    margin-top: 20px;
+}
+

@@ -1,9 +1,18 @@
 // Elemente aus der html datei hole
 const cookingBoardBt = document.getElementById('cookingBoardBt');
 const backToGroupsBt = document.getElementById('backToGroupsBt');
+
+const amountDialog = document.getElementById('amountDialog');
+const modalIngredientName = document.getElementById('modalIngredientName');
+const modalGramInput = document.getElementById('modalGramInput');
+const modalCancelBt = document.getElementById('modalCancelBt');
+const modalConfirmBt = document.getElementById('modalConfirmBt');
+let selectedIngredient = null;
+
 // Wir holen das h1-Element direkt aus dem Header, da es keine ID hat
 const pageTitle = document.querySelector('header h1');
 const ingredientsListDiv = document.getElementById('ingredients-list')
+
 
 //alle screens in einer liste speichern
 const screens = {
@@ -55,18 +64,30 @@ function fetchIngredients(groupId, groupName) {
              return;
          }
 
-         // Wir bauen das HTML dynamisch aus den JSON-Daten
-         const ul = document.createElement('ul');
-         ul.className = "ingredients-ui-list";
+         // Container für die Buttons statt der Liste
+         const container = document.createElement('div');
+         container.className = "ingredients-buttons-grid";
 
          ingredients.forEach(ingredient => {
-             const li = document.createElement('li');
-             li.innerText = ingredient.ingrName;
-             ul.appendChild(li);
+         // Jede Zutat wird zum Button
+         const button = document.createElement('button');
+         button.className = "ingredient-card-bt";
+         button.innerText = ingredient.ingrName;
+
+         // Klick auf den Button -> Merken und Popup öffnen
+         button.addEventListener('click', () => {
+         selectedIngredient = ingredient; // Zutat im Speicher sichern
+         modalIngredientName.innerText = ingredient.ingrName; // Name im Popup ändern
+         modalGramInput.value = ""; // Input-Feld im Popup leeren
+         amountDialog.showModal(); // Das HTML-Popup öffnen
          });
 
-         ingredientsListDiv.appendChild(ul);
+         container.appendChild(button);
+         });
+
+         ingredientsListDiv.appendChild(container);
      })
+
      .catch(error => {
          console.error("API-Fehler:", error);
          ingredientsListDiv.innerHTML = `<p style="color: red;">Daten konnt nicht geladen werden. Datenbank leer?</p>`;
@@ -145,6 +166,30 @@ if (cookingBoardBt) {
 if (backToGroupsBt) {
     backToGroupsBt.addEventListener('click', () => {
        showScreen('groups', 'Food Groups');
+    });
+}
+
+// Wenn man im Popup auf Cancel klickt, schließt es sich einfach
+if (modalCancelBt && amountDialog) {
+    modalCancelBt.addEventListener('click', () => {
+        amountDialog.close();
+    });
+}
+
+// Wenn man im Popup auf Add klickt, prüfen wir die Grammzahl
+if (modalConfirmBt && amountDialog) {
+    modalConfirmBt.addEventListener('click', () => {
+    const amount = modalGramInput.value;
+    if (amount && amount > 0 && selectedIngredient) {
+    // Eine Benachrichtigung
+    alert(`${amount}g ${selectedIngredient.ingrName} Added to the Pot!`);
+
+    // Hier könnt ma später was in eine Liste speichern
+
+    amountDialog.close(); // Popup schließen
+    } else {
+    alert("Please put in a valid Number!");
+    }
     });
 }
 
