@@ -43,7 +43,7 @@ public class DataInitializer implements CommandLineRunner {
 
             userRepository.save(defaultUser);
             System.out.println(">> Database seeded with default user: john@foodly.com / 456");
-
+        }
 
             //Foodgroups
 
@@ -126,7 +126,7 @@ public class DataInitializer implements CommandLineRunner {
 
             System.out.println("Datenbank befüllt");
 
-        }
+
 
     }
 }

@@ -41,10 +41,6 @@ public class DishModel {
         return id;
     }
 
-    /*
-    //public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    */
 
     public UserModel getUser() {
         return user;
@@ -52,6 +48,14 @@ public class DishModel {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<DishIngredient> getDishIngredients() {
