@@ -5,11 +5,13 @@ const cancelLogin = document.getElementById('cancelLogin');
 
 // Wenn der "Log in!" Button geklickt wird -> Dialog als Modal (Pop-up) öffnen
 authBt.addEventListener('click', () => {
+    console.log("Login clicked");
     loginDialog.showModal();
 });
 
 // Wenn der "Cancel" Button geklickt wird -> Dialog wieder schließen
 cancelLogin.addEventListener('click', () => {
+    console.log("Login canceled");
     loginDialog.close();
 });
 
