@@ -61,7 +61,7 @@ function fetchIngredients(groupId, groupName) {
 
          ingredients.forEach(ingredient => {
              const li = document.createElement('li');
-             li.innerText = ingredient.name;
+             li.innerText = ingredient.ingrName;
              ul.appendChild(li);
          });
 
