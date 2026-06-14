@@ -13,7 +13,7 @@ public class DishModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //private String name; TODO: Tova leave this until dish saving
+    private String name; //TODO: Tova leave this until dish saving -Viktoria hats frühzeitig wieder rein weil viktoria nen grund fürn patch braucht, viktoria will bonuspunkte pls
 
     // Many Dishes belong to One User
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,20 +28,17 @@ public class DishModel {
     public DishModel() {
     }
 
-    /* TODO Tova uncomment when we save/load named dishes
-    public DishModel(String name) {
+    // TODO Tova uncomment when we save/load named dishes -Viktoria sagt: siehe oben bei attribut
+    public DishModel(String name, UserModel user) {
         this.name = name;
+        this.user = user;
     }
-     */
+
 
 
     // Getters and Setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /*
@@ -57,11 +54,11 @@ public class DishModel {
         this.user = user;
     }
 
-    public List<DishIngredient> dishIngredients() {
+    public List<DishIngredient> getDishIngredients() {
         return dishIngredients;
     }
 
-    public void setRecipeIngredients(List<DishIngredient> dishIngredients) {
+    public void setDishIngredients(List<DishIngredient> dishIngredients) {
         this.dishIngredients = dishIngredients;
     }
 }
