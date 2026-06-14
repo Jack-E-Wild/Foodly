@@ -85,7 +85,7 @@ public class DataInitializer implements CommandLineRunner {
                     1.6);
             avocado.setFoodGroups(List.of(fats, fibers));
             IngredientModel peanutbutter = new IngredientModel(
-                    "Peanutbuter",
+                    "Peanutbutter",
                     636,
                     50.8,
                     12.5,
