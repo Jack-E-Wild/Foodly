@@ -1,6 +1,7 @@
 // Elemente aus der html datei hole
 const cookingBoardBt = document.getElementById('cookingBoardBt');
 
+const logoutBt = document.getElementById('logoutBt');
 const universalBackBt = document.getElementById('universalBackBt');
 let screenHistory = []; // Damit er weiß wohin zurück
 //Modal Elemente
@@ -201,6 +202,26 @@ if (cookingBoardBt) {
 //        fetchIngredients(groupId, groupName);
 //    });
 //});
+
+//Logout Button
+if (logoutBt) {
+logoutBt.addEventListener('click', () => {
+// Logout per GET
+fetch('/logout', {
+method: 'GET'
+})
+.then(response => {
+//Nutzer geht zurück zum Login-Bildschirm
+window.location.href = '/';
+})
+.catch(error => {
+console.error('Issues logging out:', error);
+// Zurück zum Login erzwingen
+window.location.href = '/';
+});
+});
+}
+
 
 //Back Button
 if (universalBackBt) {
