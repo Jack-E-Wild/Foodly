@@ -97,72 +97,38 @@
     margin-top: 20px;
 }
 
-/*Virtual Pot screen*/
-#pot-ingredients-container {
-    max-width: 340px;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: transparent;
-    border: 2px dashed #b59975;
-    border-radius: 12px;
-}
 
-.pot-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    gap: 16px;
-}
-
-.pot-item {
+/*navigations buttons etc */
+.dashboard-menu-buttons {
     display: flex;
-    justify-content: space-between;  /* Name links, Gramm ganz rechts */
-    align-items: center; /* Vertikal mittig ausrichten */
-    padding: 10px;
-    border-bottom: 1px solid rgba(181, 153, 117, 0.3); /* Dezente Trennlinie */
+    flex-direction: column;
+    gap: 12px;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
 
-.pot-item:last-child {
-    border-bottom: none;  /* Letztes Element braucht keine Linie drunter */
-}
-
-* Container für den Namen, falls er umbrechen muss (z.B. Dried Lentils) */
-.pot-item-name {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #4A3525;
-    text-align: left;
-    max-width: 70%; /* Verhindert, dass der Text in die Grammzahl rennt */
-    line-height: 1.3;
-}
-
-/* Schickes Design für die Gewichtsangabe */
-.pot-item-amount {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #2c1d11;
-    white-space: nowrap; /* Grammzahl bleibt immer in einer Zeile */
-}
-
-#potAddMoreBt {
-    display: block;
-    margin: 30px auto 0 auto;
-    padding: 14px 28px;
+.menu-btn-pot, .menu-btn-stats {
+    width: 100%;
+    padding: 14px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #A3B899;
     color: white;
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.1s ease, background-color 0.2s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.1s;
 }
 
-#potAddMoreBt:hover {
-    background-color: #92A788;
+.menu-btn-pot {
+    background-color: #b59975;
 }
 
-#potAddMoreBt:active {
-    transform: scale(0.96);
+.menu-btn-stats {
+    background-color: #8fa3ad;
+}
+
+.menu-btn-pot:active, .menu-btn-stats:active {
+    transform: scale(0.97);
 }

@@ -12,10 +12,10 @@ const modalGramInput = document.getElementById('modalGramInput');
 const modalCancelBt = document.getElementById('modalCancelBt');
 const modalConfirmBt = document.getElementById('modalConfirmBt');
 let selectedIngredient = null;
-//Virtual pot Elemente
-const potIngredientsContainer = document.getElementById('pot-ingredients-container');
-const potAddMoreBt = document.getElementById('potAddMoreBt');
-const virtualPot = [];
+//Selektoren für die neuen Steuerungsknöpfe
+const goToPotBt = document.getElementById('goToPotBt');
+const goToStatsBt = document.getElementById('goToStatsBt');
+const cookingToPotBt = document.getElementById('cookingToPotBt');
 
 // Wir holen das h1-Element direkt aus dem Header, da es keine ID hat
 const pageTitle = document.querySelector('header h1');
@@ -27,7 +27,6 @@ const screens = {
     start: document.getElementById('screen-start'),
     groups: document.getElementById('screen-groups'),
     cooking: document.getElementById('screen-cooking'),
-    pot: document.getElementById('screen-pot')
 };
 
 //Zentrale Funktion zum wechseln der Screens
@@ -64,28 +63,6 @@ function showScreen(screenKey, titleText, isBackAction = false) {
         if (globalSearchInput) {
         globalSearchInput.style.display = screenKey !== 'start' ? "block" : "none";
         }
-}
-
-//Funktion zum Zeichnen der Zutaten im Virtual Pot
-function updatePotUI() {
-    if(virtualPot.length == 0) {
-    potIngredientsContainer.innerHTML = "<p style='text-align: center; color: #777;>Your pot is empty. Add some ingredients!</p>";
-    return;
-    }
-
-    const ul = document.createElement('ul');
-    ul.className = "pot-list";
-
-    virtualPot.forEach(item => {
-        const li = document.createElement('li');
-        li.className = "pot-item";
-        li.innerHTML = `<span class="pot-item-name">${item.name}</span>
-                        <span class="pot-item-amount">${item.amount}g</span>`;
-        ul.appendChild(li);
-    });
-
-    potIngredientsContainer.innerHTML = "";
-    potIngredientsContainer.appendChild(ul);
 }
 
 //Zutaten für eine bestimmte group laden
@@ -255,44 +232,59 @@ if (modalConfirmBt && amountDialog) {
     modalConfirmBt.addEventListener('click', () => {
         const amount = modalGramInput.value;
         if (amount && amount > 0 && selectedIngredient) {
-            //Zutaten als Objekt in das array pushen
+            // Aus dem localStorage bestehende Daten holen oder leeres Array starten
+            const virtualPot = JSON.parse(localStorage.getItem('virtualPot')) || [];
+
+            // Neue Zutat hinzufügen
             virtualPot.push({
                 id: selectedIngredient.id,
                 name: selectedIngredient.ingrName,
                 amount: parseInt(amount, 10)
             });
 
+            // Zurück in den localStorage speichern
+            localStorage.setItem('virtualPot', JSON.stringify(virtualPot));
+
             amountDialog.close(); //Schließt popup
 
+            // Weiterleitung auf die komplett eigene Topf-Seite!
+            window.location.href = '/pot.html';
+
             //virtual Pot view aktiúalisieren
-            updatePotUI();
+         //   updatePotUI();
 
             //wechsel zum virtual pot
-            showScreen('pot', 'Virtual Pot');
+           // showScreen('pot', 'Virtual Pot');
         } else {
         alert("Please put in a valid Number!");
         }
     });
 }
 
+//Weiter- und Navigations-Links zu den HTML-Seiten
+if (goToPotBt) {
+    goToPotBt.addEventListener('click', () => { window.location.href = '/pot.html'; });
+}
 
-if (potAddMoreBt) {
-    potAddMoreBt.addEventListener('click', () => {
-        showScreen('groups', 'Food Groups');
-    });
+if (cookingToPotBt) {
+    cookingToPotBt.addEventListener('click', () => { window.location.href = '/pot.html'; });
+}
+
+if (goToStatsBt) {
+    goToStatsBt.addEventListener('click', () => { alert("Statistik-Seite folgt bald!"); });
 }
 
     //Search für die Ingredient Buttons
-    if (globalSearchInput) {
+if (globalSearchInput) {
     globalSearchInput.addEventListener('input', (event) => {
-    const searchTerm = event.target.value.toLowerCase().trim();
+        const searchTerm = event.target.value.toLowerCase().trim();
 
-    // FDC-Daten bei Group holen
-    const currentScreenKey = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
-    if (currentScreenKey === 'groups' && searchTerm.length > 2) {
+        // FDC-Daten bei Group holen
+        const currentScreenKey = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
+        if (currentScreenKey === 'groups' && searchTerm.length > 2) {
 
-    // in die passende Foodgroup wechselnn mit filter
-    showScreen('cooking', 'SEARCH RESULTS');
+            // in die passende Foodgroup wechselnn mit filter
+            showScreen('cooking', 'SEARCH RESULTS');
 
     // SEARCH endpoint
     fetch('/api/search')
@@ -301,43 +293,51 @@ if (potAddMoreBt) {
     //Liste leeren und FDC-Ergebnisse einbaun
     ingredientsListDiv.innerHTML = "";
 
-    const container = document.createElement('div');
-    container.className = "ingredients-buttons-grid";
+                const container = document.createElement('div');
+                container.className = "ingredients-buttons-grid";
 
-    foodItems.forEach(item => {
-    const button = document.createElement('button');
-    button.className = "ingredient-card-bt";
-    button.innerText = item.description;
+                foodItems.forEach(item => {
+                    const button = document.createElement('button');
+                    button.className = "ingredient-card-bt";
+                    button.innerText = item.description;
 
-    button.addEventListener('click', () => {
-    selectedIngredient = { ingrName: item.description };
-    modalIngredientName.innerText = item.description;
-    modalGramInput.value = "";
-    amountDialog.showModal();
-    });
-    container.appendChild(button);
-    });
-    ingredientsListDiv.appendChild(container);
-    });
-    }
+                    button.addEventListener('click', () => {
+                        selectedIngredient = { ingrName: item.description };
+                        modalIngredientName.innerText = item.description;
+                        modalGramInput.value = "";
+                        amountDialog.showModal();
+                    });
+                    container.appendChild(button);
+                });
+                ingredientsListDiv.appendChild(container);
+            });
+        }
 
 
-    else {
-    //Ingredeitn Buttons holen
-    const ingredientButtons = document.querySelectorAll('.ingredient-card-bt');
+        else {
+            //Ingredeitn Buttons holen
+            const ingredientButtons = document.querySelectorAll('.ingredient-card-bt');
 
-    ingredientButtons.forEach(button => {
-    const ingredientName = button.innerText.toLowerCase();
+            ingredientButtons.forEach(button => {
+                const ingredientName = button.innerText.toLowerCase();
 
-    // Verstecke nicht gesuchtes
-    if (ingredientName.includes(searchTerm)) {
-    button.style.display = ""; // sichtbar
-    } else {
-    button.style.display = "none"; // ausgeblendet
-    }
-    });
-    }
+                // Verstecke nicht gesuchtes
+                if (ingredientName.includes(searchTerm)) {
+                    button.style.display = ""; // sichtbar
+                } else {
+                    button.style.display = "none"; // ausgeblendet
+                }
+            });
+        }
     });
 }
 
-showScreen('start', 'Foodly');
+// --- Deep-Linking Check beim Starten ---
+// Falls pot.html uns einen Query-Parameter mitschickt, direkt die Gruppen zeigen
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('screen') === 'groups') {
+    showScreen('groups', 'Food Groups');
+    fetchFoodGroups();
+} else {
+    showScreen('start', 'Foodly');
+}

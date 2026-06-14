@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,19 +25,19 @@
         </section>
 
         <section id="screen-groups" class="app-screen">
-            <div class="groups-grid" id="groups-container">
+            <div class="groups-grid" id="groups-container"></div>
+            <div class="dashboard-menu-buttons">
+                <button id="goToPotBt" class="menu-btn-pot">View Virtual Pot</button>
+                <button id="goToStatsBt" class="menu-btn-stats">View Statistics</button>
             </div>
         </section>
 
         <section id="screen-cooking" class="app-screen">
             <h2>What do you want to add?</h2>
             <div id="ingredients-list"></div>
-        </section>
-
-        <section id="screen-pot" class="app-screen">
-            <h2>Your Virtual Pot</h2>
-            <div id="pot-ingredients-container"></div>
-            <button id="potAddMoreBt">Add more ingredients</button>
+            <div class="dashboard-menu-buttons">
+                <button id="cookingToPotBt" class="menu-btn-pot">Go to Pot ➔</button>
+            </div>
         </section>
     </main>
     <footer>
