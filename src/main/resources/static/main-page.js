@@ -5,6 +5,7 @@ const logoutBt = document.getElementById('logoutBt');
 const universalBackBt = document.getElementById('universalBackBt');
 const universalNextBt = document.getElementById('universalNextBt');
 const globalSearchInput = document.getElementById('globalSearchInput');
+const globalSearchBt = document.getElementById('globalSearchBt');
 let screenHistory = []; // Damit er weiß wohin zurück
 //Modal Elemente
 const amountDialog = document.getElementById('amountDialog');
@@ -93,6 +94,11 @@ function showScreen(screenKey, titleText, isBackAction = false) {
     // Suchfeld auf Startseite ausblenden
     if (globalSearchInput) {
         globalSearchInput.style.display = screenKey !== 'start' ? "block" : "none";
+    }
+
+    // searchbutton auf Startseite ausblenden
+    if (globalSearchBt) {
+        globalSearchBt.style.display = screenKey !== 'start' ? "block" : "none";
     }
 }
 
@@ -327,9 +333,9 @@ if (goToStatsBt) {
 
     //Search für die Ingredient Buttons
 if (globalSearchInput) {
-    globalSearchInput.addEventListener('input', (event) => {
-        const searchTerm = event.target.value.toLowerCase().trim();
-
+    globalSearchBt.addEventListener('click', (event) => {
+        const searchTerm = globalSearchInput.value.toLowerCase().trim();
+        const url = `/api/search?query=${encodeURIComponent(searchTerm)}`;
         // FDC-Daten bei Group holen
         const currentScreenKey = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
         if (currentScreenKey === 'groups' && searchTerm.length > 2) {
@@ -338,7 +344,7 @@ if (globalSearchInput) {
             showScreen('cooking', 'SEARCH RESULTS');
 
     // SEARCH endpoint
-    fetch('/api/search')
+    fetch(url)
     .then(response => response.json())
     .then(foodItems => {
     //Liste leeren und FDC-Ergebnisse einbaun
