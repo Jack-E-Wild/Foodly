@@ -235,9 +235,15 @@ if(dishNameConfirmBt) {
             return response.json();
         })
         .then(dish => {
+            //Konsole gibt aus obs richtig gespeichert wurde und b´gibt uns die dish auch aus
+            console.log("1. Erfolg! Backend hat das Gericht erstellt. Antwortdaten:", dish);
             currentDishId = dish.id; //merkt sich die ID vom Server
+            //konsole gibt uns die dishId  zrk
+            console.log("2. Die Variable currentDishId ist jetzt:", currentDishId);
+
             dishNameDialog.close();
             showScreen('groups', 'Food Groups');
+            fetchFoodGroups();
         })
         .catch(error => {
             console.error("Failed to create dish: ", error);
@@ -251,6 +257,12 @@ if(dishNameConfirmBt) {
 if (modalConfirmBt && amountDialog) {
     modalConfirmBt.addEventListener('click', () => {
         const amount = modalGramInput.value;
+        //gibt uns in der konsole zrk was grad apssiert um zu testen obs klappt
+        console.log("3. 'Add' geklickt. Überprüfe Daten vor dem Absenden:");
+        console.log("   - currentDishId (Gericht):", currentDishId);
+        console.log("   - selectedIngredient (Zutat):", selectedIngredient);
+        console.log("   - Eingegebene Menge:", amount);
+
         if (amount && amount > 0 && selectedIngredient && currentDishId) {
             // POST ans Backend senden, um Zutat an das Dish zu hängen
             //Body braucht "id" (der Zutat) und "amount"
@@ -266,7 +278,11 @@ if (modalConfirmBt && amountDialog) {
                 if (!response.ok) throw new Error("failed to add ingredient");
                 return response.json();
             })
-            .then(() => {
+            .then(data => {
+                //konsolen ausgaben zum testen obs klappt
+                console.log("4. Zutat erfolgreich gemappt! Backend-Antwort:", data);
+                console.log(`5. Leite weiter zu: /pot.html?dishId=${currentDishId}`);
+
                 amountDialog.close();
                 // Direkt zur Topf-Seite wechseln und die dishId mitschicken!
                 window.location.href = `/pot.html?dishId=${currentDishId}`;

@@ -37,7 +37,17 @@ function loadPotData() {
         return response.json(); // Liefert eine Map: { "dish": ..., "totalCalories": ..., "macroPercentages": ... }
     })
     .then(data => {
+        //konsolen ausgaben um sicherzugehen, dass es klappt
+        console.log("=== VIRTUAL POT DATEN VOM BACKEND ===");
+        console.log("Komplette Antwort (data):", data);
+
         const dish = data.dish; // Das eigentliche Dish-Modul herausholen
+        console.log("Das extrahierte Gericht (dish):", dish);
+
+        if (dish) {
+            console.log("Enthaltene Zutaten im Gericht:", dish.ingredients || dish.foodItems);
+        }
+        console.log("=====================================");
         // Den Namen des Gerichts im Titel anzeigen (und klickbar machen zum Bearbeiten!)
         // PATCH: Gerichtname ändern bei Klick auf den Titel
         if (pageTitle && dish) {
@@ -58,7 +68,7 @@ function loadPotData() {
         }
 
         // Zutatenliste rendern
-        const ingredients = dish.ingredients || dish.foodItems || [];
+        const ingredients = dish.dishIngredients  || [];
         //    // Zutaten aus dem localStorage holen, falls keine da sind leeres Array nutzen
         //    const virtualPot = JSON.parse(localStorage.getItem('virtualPot')) || [];
 
@@ -73,26 +83,34 @@ function loadPotData() {
         ingredients.forEach(item => {
             const li = document.createElement('li');
             li.className = "pot-item";
-            // Name und Menge anzeigen
-            const ingredientName = item.ingrName || item.name || "Zutat";
+            // Holt den Namen direkt oder schaut in das verschachtelte Objekt aus deiner Server-Antwort
+            const ingredientName = item.ingrName || item.name || (item.ingredient ? item.ingredient.ingrName : null) || "Zutat";
+
+            // Holt die Grammzahl (im Backend-Log deines Bildes heißt es schlicht "amount")
+            const ingredientAmount = item.amount ||
+                                     (item.ingredient ? item.ingredient.amount : null) ||
+                                     (item.foodItem ? item.foodItem.amount : null) ||
+                                     item.grams || 0;
+
             li.innerHTML = `
                 <span class="pot-item-name">${ingredientName}</span>
                 <div>
-                    <span class="pot-item-amount" style="margin-right: 15px; cursor:pointer;">${item.amount}g ✏️</span>
+                    <span class="pot-item-amount" style="margin-right: 15px; cursor:pointer;">${ingredientAmount}g ✏️</span>
                     <button class="delete-ingredient-bt" style="background:none; border:none; cursor:pointer; font-size:1.1rem;">❌</button>
                 </div>
             `;
 
             // PUT: Menge ändern (Schickt ID und amount im JSON-Body an /api/dish/{dishId}/ingredients)
             li.querySelector('.pot-item-amount').addEventListener('click', () => {
-                const newAmount = prompt("Change amount (grams):", item.amount);
+                const newAmount = prompt("Change amount (grams):", ingredientAmount);
                 if (newAmount && parseFloat(newAmount) > 0) {
                     fetch(`/api/dish/${dishId}/ingredients`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             id: item.id, // Die ID des Eintrags im Join/Modell
-                            amount: parseFloat(newAmount)
+                            amount: parseFloat(newAmount),
+                            grams: parseFloat(newAmount)
                         })
                     })
                     .then(res => { if(res.ok) loadPotData(); });
