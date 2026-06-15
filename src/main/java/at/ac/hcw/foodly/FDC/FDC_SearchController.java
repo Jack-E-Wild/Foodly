@@ -19,7 +19,7 @@ public class FDC_SearchController {
 
     @GetMapping
     public ResponseEntity<List<FDC_FoodItemDTO>> getFoodItem(
-            @RequestHeader(value = "X-Search-Term", required = false) String searchTerm) {
+            @RequestParam(value = "query", required = false) String searchTerm) {
 
         if (searchTerm == null || searchTerm.trim().isEmpty()) {
             searchTerm = "";
