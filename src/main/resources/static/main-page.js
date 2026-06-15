@@ -6,13 +6,22 @@ const universalBackBt = document.getElementById('universalBackBt');
 const universalNextBt = document.getElementById('universalNextBt');
 const globalSearchInput = document.getElementById('globalSearchInput');
 let screenHistory = []; // Damit er weiß wohin zurück
-//Modal Elemente
+
+//Modal Elemente vom dish Name
+const dishNameDialog = document.getElementById('dishNameDialog');
+const dishNameInput = document.getElementById('dishNameInput');
+const dishNameCancelBt = document.getElementById('dishNameCancelBt');
+const dishNameConfirmBt = document.getElementById('dishNameConfirmBt');
+let currentDishId = null; // Die ID des aktuell erstellten Gerichts merken
+
+//Modal Elemente für amount dialog
 const amountDialog = document.getElementById('amountDialog');
 const modalIngredientName = document.getElementById('modalIngredientName');
 const modalGramInput = document.getElementById('modalGramInput');
 const modalCancelBt = document.getElementById('modalCancelBt');
 const modalConfirmBt = document.getElementById('modalConfirmBt');
 let selectedIngredient = null;
+
 //Selektoren für die neuen Steuerungsknöpfe
 const goToPotBt = document.getElementById('goToPotBt');
 const goToStatsBt = document.getElementById('goToStatsBt');
@@ -39,7 +48,7 @@ function loadUserAvatar() {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Avatar konnte nicht geladen werden');
+            throw new Error('Failed to load avatar');
         }
         return response.json(); // Erwartet: { "avatar": "https://..." }
     })
@@ -144,7 +153,7 @@ function fetchIngredients(groupId, groupName) {
          ingredientsListDiv.appendChild(container);
     })
     .catch(error => {
-         console.error("API-Fehler:", error);
+         console.error("API-Error:", error);
          ingredientsListDiv.innerHTML = `<p style="color: red;">Unable to load data. Empty database?</p>`;
     });
 }
@@ -198,11 +207,92 @@ function fetchFoodGroups() {
 //auf Let's cook Klicken -> wechselt zu den Foodgroups und lädt die Gruppen
 if (cookingBoardBt) {
     cookingBoardBt.addEventListener('click', () => {
-        showScreen('groups', 'Food Groups');
-        fetchFoodGroups();
+        dishNameInput.value = "";
+        dishNameDialog.showModal();
     });
 }
 
+if(dishNameCancelBt) {
+    dishNameCancelBt.addEventListener('click', () => {dishNameDialog.close();});
+}
+
+//Dish im Backend erstellen
+if(dishNameConfirmBt) {
+    dishNameConfirmBt.addEventListener('click', () => {
+        const name = dishNameInput.value.trim();
+        if(!name) {
+            alert("Please enter a name!");
+            return;
+        }
+
+        fetch('/api/dish', {
+            method: 'POST',
+            headers: { 'Content-Type':'application/json' },
+            body: JSON.stringify({name: name})
+        })
+        .then(response => {
+            if(!response.ok) throw new Error("Dish could not be created!");
+            return response.json();
+        })
+        .then(dish => {
+            currentDishId = dish.id; //merkt sich die ID vom Server
+            dishNameDialog.close();
+            showScreen('groups', 'Food Groups');
+        })
+        .catch(error => {
+            console.error("Failed to create dish: ", error);
+            alert("Failed to create dish!");
+        });
+    });
+}
+
+
+// Zutat zum Gericht hinzufügen (POST an /api/dish/{dishId}/ingredients)
+if (modalConfirmBt && amountDialog) {
+    modalConfirmBt.addEventListener('click', () => {
+        const amount = modalGramInput.value;
+        if (amount && amount > 0 && selectedIngredient && currentDishId) {
+            // POST ans Backend senden, um Zutat an das Dish zu hängen
+            //Body braucht "id" (der Zutat) und "amount"
+            fetch(`/api/dish/${currentDishId}/ingredients`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: selectedIngredient.id,
+                    amount: parseFloat(amount)
+                })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("failed to add ingredient");
+                return response.json();
+            })
+            .then(() => {
+                amountDialog.close();
+                // Direkt zur Topf-Seite wechseln und die dishId mitschicken!
+                window.location.href = `/pot.html?dishId=${currentDishId}`;
+            })
+            .catch(error => {
+                console.error("Error when adding ingredient:", error);
+                alert("Backend error when adding ingredient");
+            });
+        } else {
+                alert("Please put in a valid Number!");
+        }
+    });
+}
+
+// Navigationen zur eigenständigen pot.html mit dishId
+if (goToPotBt) {
+    goToPotBt.addEventListener('click', () => {
+        if(currentDishId) window.location.href = `/pot.html?dishId=${currentDishId}`;
+    });
+}
+
+if (cookingToPotBt) {
+     cookingToPotBt.addEventListener('click', () => {
+         if(currentDishId) window.location.href = `/pot.html?dishId=${currentDishId}`;
+     });
+ }
 ////Klicken auf eine Foodgroup
 //document.querySelectorAll('.group-card').forEach(button => {
 //    button.addEventListener('click', (event) => {
@@ -219,21 +309,21 @@ if (cookingBoardBt) {
 
 //Logout Button
 if (logoutBt) {
-logoutBt.addEventListener('click', () => {
-// Logout per GET
-fetch('/logout', {
-method: 'GET'
-})
-.then(response => {
-//Nutzer geht zurück zum Login-Bildschirm
-window.location.href = '/';
-})
-.catch(error => {
-console.error('Issues logging out:', error);
-// Zurück zum Login erzwingen
-window.location.href = '/';
-});
-});
+    logoutBt.addEventListener('click', () => {
+        // Logout per GET
+        fetch('/logout', {
+            method: 'GET'
+        })
+        .then(response => {
+            //Nutzer geht zurück zum Login-Bildschirm
+            window.location.href = '/';
+        })
+        .catch(error => {
+            console.error('Issues logging out:', error);
+            // Zurück zum Login erzwingen
+            window.location.href = '/';
+        });
+    });
 }
 
 
@@ -258,15 +348,19 @@ if (universalNextBt) {
         const currentScreenKey = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
 
         if (currentScreenKey === 'start') {
-            // Von Start geht es zu den Gruppen
-            showScreen('groups', 'Food Groups');
-            fetchFoodGroups(); // Lädt die Gruppen direkt mit auf
+            // Falls man von Start weiter klickt, auch nach Namen fragen
+            dishNameDialog.showModal();
         } else if (currentScreenKey === 'groups') {
             // Von Gruppen geht es zur Koch-Anzeige
             showScreen('cooking', 'COOKING');
         } else if (currentScreenKey === 'cooking') {
-            //Wenn wir auf der Cooking-Seite "Weiter" klicken, springen wir zur pot.html!
-            window.location.href = '/pot.html';
+            // Reicht die aktuelle dishId an die Topf-Seite weiter
+            if (currentDishId) {
+                window.location.href = `/pot.html?dishId=${currentDishId}`;
+            } else {
+                //Wenn wir auf der Cooking-Seite "Weiter" klicken, springen wir zur pot.html!
+                window.location.href = '/pot.html';
+            }
         }
     });
 }
@@ -278,48 +372,8 @@ if (modalCancelBt && amountDialog) {
     });
 }
 
-// Wenn man im Popup auf Add klickt, prüfen wir die Grammzahl
-if (modalConfirmBt && amountDialog) {
-    modalConfirmBt.addEventListener('click', () => {
-        const amount = modalGramInput.value;
-        if (amount && amount > 0 && selectedIngredient) {
-            // Aus dem localStorage bestehende Daten holen oder leeres Array starten
-            const virtualPot = JSON.parse(localStorage.getItem('virtualPot')) || [];
 
-            // Neue Zutat hinzufügen
-            virtualPot.push({
-                id: selectedIngredient.id,
-                name: selectedIngredient.ingrName,
-                amount: parseInt(amount, 10)
-            });
 
-            // Zurück in den localStorage speichern
-            localStorage.setItem('virtualPot', JSON.stringify(virtualPot));
-
-            amountDialog.close(); //Schließt popup
-
-            // Weiterleitung auf die komplett eigene Topf-Seite!
-            window.location.href = '/pot.html';
-
-            //virtual Pot view aktiúalisieren
-         //   updatePotUI();
-
-            //wechsel zum virtual pot
-           // showScreen('pot', 'Virtual Pot');
-        } else {
-        alert("Please put in a valid Number!");
-        }
-    });
-}
-
-//Weiter- und Navigations-Links zu den HTML-Seiten
-if (goToPotBt) {
-    goToPotBt.addEventListener('click', () => { window.location.href = '/pot.html'; });
-}
-
-if (cookingToPotBt) {
-    cookingToPotBt.addEventListener('click', () => { window.location.href = '/pot.html'; });
-}
 
 if (goToStatsBt) {
     goToStatsBt.addEventListener('click', () => { alert("Statistik-Seite folgt bald!"); });
@@ -353,7 +407,8 @@ if (globalSearchInput) {
                     button.innerText = item.description;
 
                     button.addEventListener('click', () => {
-                        selectedIngredient = { ingrName: item.description };
+                        // Speichert jetzt auch die id des Suchergebnisses mit ab
+                        selectedIngredient = { id: item.id, ingrName: item.description };
                         modalIngredientName.innerText = item.description;
                         modalGramInput.value = "";
                         amountDialog.showModal();
@@ -386,12 +441,13 @@ if (globalSearchInput) {
 // --- Deep-Linking Check beim Starten ---
 // Falls pot.html uns einen Query-Parameter mitschickt, direkt die Gruppen zeigen
 const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('screen') === 'groups') {
+if (urlParams.get('dishId')) {
+    currentDishId = parseInt(urlParams.get('dishId'), 10);
     showScreen('groups', 'Food Groups');
     fetchFoodGroups();
 } else {
-    // Beim Laden der Seite direkt den Avatar des Session-Users holen
-    loadUserAvatar();
-    //
     showScreen('start', 'Foodly');
 }
+
+// Beim Laden der Seite direkt den Avatar des Session-Users holen
+loadUserAvatar();
