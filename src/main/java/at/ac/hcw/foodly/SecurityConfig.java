@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/**", "/error/**").permitAll() //löschen am Ende
                         .requestMatchers("/index.html", "/index.js", "/css/**").permitAll() // startseite muss man anpassen
+                        .requestMatchers("/api/auth/status").permitAll()
                         .requestMatchers("/api/public/**", "/api/users/register", "/").permitAll()                     // andere öffentliche endpunkte
                         .anyRequest().authenticated()                                      // ALLES andere braucht einen Login!
                 )
