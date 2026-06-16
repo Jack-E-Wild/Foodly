@@ -111,3 +111,13 @@ dialog form, .modal-content {
 .modal-buttons button[id*="Cancel"]:hover {
     background-color: #d5d5d5;
 }
+
+
+.dish-ui-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain; /* Prevents squishing or stretching */
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
