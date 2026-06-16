@@ -39,9 +39,10 @@ function checkAuthStatus() {
         return response.json();
     })
     .then(data => {
-        welcomeGreeting.innerText = `Welcome back, ${data.username}!`
+        welcomeGreeting.innerText = `Welcome, ${data.username}!`
         // Erfolgreich eingeloggt!
-        showUserDashboard(data.avatar);
+        loadUserAvatar()
+        showUserDashboard();
     })
     .catch(() => {
         // Nicht eingeloggt -> Zeige Gast-Ansicht
@@ -58,20 +59,16 @@ function showGuestView() {
 }
 
 // UI umschalten für eingeloggte User
-function showUserDashboard(avatarUrl) {
+function showUserDashboard() {
     guestView.style.display = 'none';
     userView.style.display = 'block';
 
-    if (avatarUrl && userAvatar) {
-        userAvatar.src = avatarUrl;
-        userAvatar.style.display = 'block';
-    }
 
     // Inspiration aus TheMealDB über euer Backend laden
     fetchInspirationDish();
 }
 
-// 2. Externe API via Backend holen (TheMealDB)
+//TheMealDB mit Backend holen
 function fetchInspirationDish() {
     // INFO: Passt den Pfad an euren tatsächlichen Backend-Endpunkt an!
     fetch('/api/random-recipe', { method: 'GET' })
@@ -80,7 +77,6 @@ function fetchInspirationDish() {
         return response.json();
     })
     .then(meal => {
-        // Erwartet z.B.: { title: "...", thumbnail: "...", recipeLink: "..." }
         inspirationCard.innerHTML = `
             <div class="meal-inspiration">
                 <img src="${meal.recipeThumbnail}" alt="${meal.recipeName}" class="inspiration-img">
@@ -95,7 +91,22 @@ function fetchInspirationDish() {
     });
 }
 
-
+function loadUserAvatar() {
+    fetch('/api/users/avatar', { method: 'GET' })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to load avatar');
+        return response.json();
+    })
+    .then(data => {
+        if (data && data.avatar && userAvatar) {
+            userAvatar.src = data.avatar;
+            userAvatar.style.display = "block"; // Sichtbar machen, wenn erfolgreich
+        }
+    })
+    .catch(error => {
+        console.error("Couldn't load Gravatars:", error);
+    });
+}
 
 // Wenn der  Button geklickt wird -> Dialog als Modal (Pop-up) öffnen
 //Log in!
@@ -150,7 +161,7 @@ loginForm.addEventListener('submit', function(event) {
 registerForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Verhindert das normale Neuladen der Seite
 
-    // 1. Die Eingabewerte aus dem HTML-Formular holen
+    //Die Eingabewerte aus dem HTML-Formular holen    anmerk:werden die noch verwendet?
     const regNameInput = document.getElementById('regName').value;
     const regEmailInput = document.getElementById('regEmail').value;
     const regPasswordInput = document.getElementById('regPassword').value;

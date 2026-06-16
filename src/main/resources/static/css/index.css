@@ -1,0 +1,293 @@
+
+header {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+main {
+  grid-area: m;
+  overflow-y: auto; /* nur Inhalt in der Mitte scrollt. */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.user-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #A3B899;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    margin: 10px 0;
+}
+
+
+footer {
+    display: flex;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    background-color: #696969;
+    border-top: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.footer-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
+}
+
+
+/* guest view */
+
+.login-welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    gap: 30px;
+}
+
+.welcome-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+#authBt, #registerBt {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background: #A3B899;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+#authBt:hover, #registerBt:hover {
+    background-color: #8E9F85;
+}
+
+#authBt:active, #registerBt:active {
+    transform: scale(0.95);
+}
+
+/* eingeloggter view */
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.dashboard-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 280px;
+}
+
+/* Standard-Button-Styling für das Dashboard */
+.btn-primary, .btn-secondary {
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #D2B48C;
+    color: #4A3525;
+    border: 2px solid #B59975;
+}
+
+.btn-secondary {
+    background-color: #8fa3ad;
+    color: white;
+}
+
+.btn-primary:active, .btn-secondary:active {
+    transform: scale(0.97);
+}
+
+/* inspriation meal */
+
+.inspiration-box {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.inspiration-box h3 {
+    margin-top: 0;
+    color: #4A3525;
+}
+
+.meal-inspiration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.inspiration-img {
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1 / 1; /* quadratisch */
+    object-fit: cover; /* falls nicht quadratisch, damits okay aussieht */
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.meal-inspiration h4 {
+    margin: 4px 0;
+    font-size: 1.1rem;
+}
+
+.meal-inspiration a {
+    color: #b59975;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.meal-inspiration a:hover {
+    text-decoration: underline;
+}
+
+/* Modal + Dialog stuff */
+dialog {
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
+}
+
+/* Der graue Hintergrund, wenn Modal geöffnet ist */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+dialog form, .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 260px;
+}
+
+dialog h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+dialog input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.button-container, .modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-container button, .modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Primary buttons in Modals */
+dialog button[type="submit"], #dishNameConfirmBt {
+    background-color: #A3B899;
+    color: white;
+}
+
+/* Cancel buttons in Modals */
+#cancelLogin, #cancelRegister, #dishNameCancelBt {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+/* Helper für Barrierefreiheit*/
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/*desktop*/
+@media (min-width: 768px) {
+    /* Im Desktop-Modus nebeneinander statt untereinander */
+    .welcome-buttons {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    #authBt, #registerBt {
+        width: 180px;
+        height: 180px;
+        font-size: 28px;
+    }
+
+    .meal-inspiration h4 {
+        margin-bottom: 8px;
+    }
+
+    body {
+            grid-template-columns: 1fr !important;
+            grid-template-areas: "h"
+                                 "m"
+                                 "f" !important;
+        }
+
+
+        nav[aria-label="Main Navigation"] {
+            display: none !important;
+        }
+
+}
