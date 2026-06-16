@@ -45,19 +45,20 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println(">> Database seeded with default user: john@foodly.com / 456");
         }
 
+        if (foodgroupRepository.count() == 0) {
+
             //Foodgroups
 
             //umständlich für wir machen objekt in dem wir ein objekt machen
             //weil das objekt erst die id beim erstellen in der datenbank bekommt
             FoodgroupModel proteins = foodgroupRepository
-                    .save(new FoodgroupModel("Proteins", "src/main/resources/static/images/testicon.png"));
+                    .save(new FoodgroupModel("Proteins", "src/main/resources/static/images/proteins.png"));
             FoodgroupModel fibers = foodgroupRepository
-                    .save(new FoodgroupModel("Fibers", "src/main/resources/static/images/testicon.png"));
+                    .save(new FoodgroupModel("Fibers", "src/main/resources/static/images/fibers.png"));
             FoodgroupModel carbs = foodgroupRepository
-                    .save(new FoodgroupModel("Carbs", "src/main/resources/static/images/testicon.png"));
+                    .save(new FoodgroupModel("Carbs", "src/main/resources/static/images/carbs.png"));
             FoodgroupModel fats = foodgroupRepository
-                    .save(new FoodgroupModel("Fats", "src/main/resources/static/images/testicon.png"));
-
+                    .save(new FoodgroupModel("Fats", "src/main/resources/static/images/fats.png"));
             //Ingredients
 
             IngredientModel beans = new IngredientModel(
@@ -125,7 +126,7 @@ public class DataInitializer implements CommandLineRunner {
             ingredientRepository.save(sesameOil);
 
             System.out.println("Datenbank befüllt");
-
+        }
 
 
     }
