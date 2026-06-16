@@ -87,7 +87,7 @@ function loadPotData() {
             const ingredientName = item.ingrName || item.name || (item.ingredient ? item.ingredient.ingrName : null) || "Zutat";
 
             // Holt die Grammzahl (im Backend-Log deines Bildes heißt es schlicht "amount")
-            const ingredientAmount = item.amount ||
+            const ingredientAmount = item.amountInGrams ||
                                      (item.ingredient ? item.ingredient.amount : null) ||
                                      (item.foodItem ? item.foodItem.amount : null) ||
                                      item.grams || 0;
@@ -108,14 +108,22 @@ function loadPotData() {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            id: item.id, // Die ID des Eintrags im Join/Modell
-                            amount: parseFloat(newAmount),
-                            grams: parseFloat(newAmount)
+                              id: item.id, // Die ID des Eintrags im Join/Modell
+                              amount: newAmount,
+                              name: item.name,
+                              fats: item.fats,
+                              carbs: item.carbs,
+                              protein: item.protein,
+                              fibers: item.fibers,
+                              calories: item.calories
                         })
                     })
                     .then(res => { if(res.ok) loadPotData(); });
                 }
             });
+
+            console.log("=== VIRTUAL POT DATEN VOM BACKEND ===");
+            console.log("Komplette Antwort (data):", data);
 
             // DELETE: Zutat aus dem Gericht löschen (/api/dish/{dishId}/ingredients/{ingredientId})
             li.querySelector('.delete-ingredient-bt').addEventListener('click', () => {
@@ -126,6 +134,9 @@ function loadPotData() {
                     .then(res => { if(res.ok) loadPotData(); });
                 }
             });
+
+            console.log("=== VIRTUAL POT DATEN VOM BACKEND ===");
+            console.log("Komplette Antwort (data):", data);
 
             ul.appendChild(li);
         });

@@ -271,7 +271,7 @@ if (modalConfirmBt && amountDialog) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     id: selectedIngredient.id,
-                    amount: parseFloat(amount)
+                    amount: amount
                 })
             })
             .then(response => {
