@@ -29,7 +29,7 @@ header {
 }
 
 #pot-ingredients-container {
-    max-width: 340px;
+    max-width: 500px;
     margin: 20px auto;
     padding: 15px;
     background-color: transparent;
@@ -50,7 +50,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 12px 5px;
     border-bottom: 1px solid rgba(181, 153, 117, 0.3);
 }
 
@@ -63,7 +63,7 @@ header {
     font-weight: 500;
     color: #4A3525;
     text-align: left;
-    max-width: 70%;
+    max-width: 65%;
     line-height: 1.3;
 }
 
