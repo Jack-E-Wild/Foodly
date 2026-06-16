@@ -1,3 +1,9 @@
 body {
     background-color: #FFF4BD;
 }
+
+/*  macro colors */
+.fill-protein { background-color: #DA6B60; }
+.fill-carbs   { background-color: #EFD298; }
+.fill-fats    { background-color: #C4CEA9; }
+.fill-fibers  { background-color: #53695C; }
