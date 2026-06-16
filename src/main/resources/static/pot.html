@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/pot.css">
+    <link rel="stylesheet" href="/css/macro-chart.css">
     <script src="logger.js"></script>
+    <script src="updateMacroChart.js"></script>
     <script type="module" src="pot.js"></script>
 </head>
 <body>
@@ -17,6 +19,49 @@
 
     <div class="header-right">
         <img id="userAvatar" class="user-avatar" src="" alt="Avatar" style="display: none;">
+    </div>
+    <div class="macro-container">
+        <h2>Nutritional Breakdown</h2>
+
+        <div class="macro-row">
+            <div class="macro-labels">
+                <span>Protein</span>
+                <span id="protein-text">0g</span>
+            </div>
+            <div class="bar-track">
+                <div id="bar-protein" class="bar fill-protein"></div>
+            </div>
+        </div>
+
+        <div class="macro-row">
+            <div class="macro-labels">
+                <span>Carbs</span>
+                <span id="carbs-text">0g</span>
+            </div>
+            <div class="bar-track">
+                <div id="bar-carbs" class="bar fill-carbs"></div>
+            </div>
+        </div>
+
+        <div class="macro-row">
+            <div class="macro-labels">
+                <span>Fats</span>
+                <span id="fats-text">0g</span>
+            </div>
+            <div class="bar-track">
+                <div id="bar-fats" class="bar fill-fats"></div>
+            </div>
+        </div>
+
+        <div class="macro-row">
+            <div class="macro-labels">
+                <span>Fibers</span>
+                <span id="fibers-text">0g</span>
+            </div>
+            <div class="bar-track">
+                <div id="bar-fibers" class="bar fill-fibers"></div>
+            </div>
+        </div>
     </div>
 </header>
 <main>
