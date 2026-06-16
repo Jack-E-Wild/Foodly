@@ -195,6 +195,14 @@ function fetchFoodGroups() {
             const button = document.createElement("button");
             button.className = "group-card";
             button.textContent = group.fgName;
+            //food group icons
+            const baseIconPath = '/images/';
+            const iconFilename = group.fgIcon;
+            const icon = document.createElement('img');
+            icon.src = `${baseIconPath}${iconFilename}`;
+            icon.alt = `${group.fgName} icon`;
+            icon.className = 'dish-ui-icon';
+
 
             //IDs und Namen kommen als Attribute rein
             button.setAttribute("data-id", group.id);
@@ -209,6 +217,7 @@ function fetchFoodGroups() {
             });
 
             //fertigen Button ins leere Grid im HTML einfügen
+            container.appendChild(icon);
             container.appendChild(button);
         });
     })
