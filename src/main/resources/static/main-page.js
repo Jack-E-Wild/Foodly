@@ -405,7 +405,19 @@ if (modalCancelBt && amountDialog) {
 
 
 if (goToStatsBt) {
-    goToStatsBt.addEventListener('click', () => { alert("Statistik-Seite folgt bald!"); });
+    goToStatsBt.addEventListener('click', () => {
+        //alert("Statistik-Seite folgt bald!");
+        console.log("NAVIGATE: 'Go to Stats' auf der Hauptseite geklickt.");
+        console.log("NAVIGATE: Aktuelle currentDishId im Speicher:", currentDishId);
+
+        if (currentDishId) {
+            console.log(`Maps: Leite weiter zu: /stats.html?dishId=${currentDishId}`);
+            window.location.href = `/stats.html?dishId=${currentDishId}`;
+        } else {
+            console.warn("NAVIGATE-ABBRUCH: Kann nicht zu Stats wechseln, weil currentDishId null oder undefined ist! (Noch kein Gericht gestartet?)");
+            alert("Please start or select a dish first before viewing statistics!");
+        }
+    });
 }
 
     //Search für die Ingredient Buttons

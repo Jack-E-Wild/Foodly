@@ -166,8 +166,22 @@ potAddMoreBt.addEventListener('click', () => {
 });
 
 potToStatsBt.addEventListener('click', () => {
-    alert("Statistik-Seite kommt in Kürze!");
-    // window.location.href = '/stats.html'; (Sobald vorhanden)
+    //alert("Statistik-Seite kommt in Kürze!");
+
+    console.log("=== NAVIGATION ZU DEN STATISTIKEN ===");
+    console.log("Button 'Go to Stats' im Virtual Pot geklickt.");
+    console.log("Aktuelle dishId in pot.js vorhanden:", dishId);
+
+
+    if (dishId) {
+        console.log(`Leite erfolgreich weiter zu: /stats.html?dishId=${dishId}`);
+        console.log("======================================");
+        window.location.href = `/stats.html?dishId=${dishId}`;
+    } else {
+        console.warn("WARNUNG: Navigation abgebrochen, da keine dishId in der URL von pot.html gefunden wurde!");
+        console.log("======================================");
+        alert("No dish selected to show statistics for.");
+    }
 });
 
 potBackBt.addEventListener('click', () => {
