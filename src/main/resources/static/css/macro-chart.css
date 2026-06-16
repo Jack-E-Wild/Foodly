@@ -35,3 +35,39 @@
     border-radius: 6px;
     transition: width 0.6s ease-in-out; /* Smooth growing animation */
 }
+
+/* Styling für die ratio Leiste */
+.total-ratio-track {
+position: relative;
+    display: flex;            /* legt sie nebeneinander */
+    width: 100%;
+    height: 16px;             /* Dicke für den balken */
+    border-radius: 8px;       /* Runde Ecken */
+    overflow: hidden;         /* schneidet die rundungen innen ab */
+    background-color: #e0e0e0;/* Grau wenn der Topf noch leer ist */
+}
+
+/* hoffentlich flüssige Bewegung, wenn sich die Prozentanteile ändern */
+.total-ratio-track .bar {
+    height: 100%;             /* Balken höhe wie leiste */
+    border-radius: 0;
+    transition: width 0.4s ease; /* Macht wachsen der Balken smooth(i hope) */
+}
+
+/*Damit die Leiste nur auf gewünschten Seiten ist*/
+.hidden {
+display: none !important;
+}
+
+.total-ratio-track .protein {
+    background-color: #DA6B60;
+}
+.total-ratio-track .carbs {
+    background-color: #EFD298;
+}
+.total-ratio-track .fats {
+    background-color: #C4CEA9;
+}
+.total-ratio-track .fibers {
+    background-color: #53695C;
+}

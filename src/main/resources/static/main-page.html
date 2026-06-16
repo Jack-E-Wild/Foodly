@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/main-page.css">
+    <link rel="stylesheet" href="/css/macro-chart.css">
     <script src="logger.js"></script>
+    <script src="updateMacroChart.js"></script>
     <script type="module" src="main-page.js"></script>
 </head>
 <body>
@@ -31,6 +33,12 @@
         </section>
 
         <section id="screen-groups" class="app-screen">
+            <div class="total-ratio-track">
+                <div id="bar-protein" class="bar fill-protein"></div>
+                <div id="bar-carbs" class="bar fill-carbs"></div>
+                <div id="bar-fats" class="bar fill-fats"></div>
+                <div id="bar-fibers" class="bar fill-fibers"></div>
+            </div>
             <div class="groups-grid" id="groups-container"></div>
             <div class="dashboard-menu-buttons">
                 <button id="goToPotBt" class="menu-btn-pot">View Virtual Pot</button>
