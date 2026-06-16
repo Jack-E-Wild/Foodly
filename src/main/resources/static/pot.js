@@ -38,16 +38,16 @@ function loadPotData() {
     })
     .then(data => {
         //konsolen ausgaben um sicherzugehen, dass es klappt
-        console.log("=== VIRTUAL POT DATEN VOM BACKEND ===");
-        console.log("Komplette Antwort (data):", data);
+        log("=== VIRTUAL POT DATEN VOM BACKEND ===");
+        log("Komplette Antwort (data):", data);
 
         const dish = data.dish; // Das eigentliche Dish-Modul herausholen
-        console.log("Das extrahierte Gericht (dish):", dish);
+        log("Das extrahierte Gericht (dish):", dish);
 
         if (dish) {
-            console.log("Enthaltene Zutaten im Gericht:", dish.ingredients || dish.foodItems);
+            log("Enthaltene Zutaten im Gericht:", dish.ingredients || dish.foodItems);
         }
-        console.log("=====================================");
+        log("=====================================");
         // Den Namen des Gerichts im Titel anzeigen (und klickbar machen zum Bearbeiten!)
         // PATCH: Gerichtname ändern bei Klick auf den Titel
         if (pageTitle && dish) {
@@ -122,8 +122,8 @@ function loadPotData() {
                 }
             });
 
-            console.log("=== VIRTUAL POT DATEN VOM BACKEND ===");
-            console.log("Komplette Antwort (data):", data);
+            log("=== VIRTUAL POT DATEN VOM BACKEND ===");
+            log("Komplette Antwort (data):", data);
 
             // DELETE: Zutat aus dem Gericht löschen (/api/dish/{dishId}/ingredients/{ingredientId})
             li.querySelector('.delete-ingredient-bt').addEventListener('click', () => {
@@ -135,8 +135,8 @@ function loadPotData() {
                 }
             });
 
-            console.log("=== VIRTUAL POT DATEN VOM BACKEND ===");
-            console.log("Komplette Antwort (data):", data);
+            log("=== VIRTUAL POT DATEN VOM BACKEND ===");
+            log("Komplette Antwort (data):", data);
 
             ul.appendChild(li);
         });

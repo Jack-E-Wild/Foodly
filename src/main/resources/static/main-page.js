@@ -242,10 +242,10 @@ if(dishNameConfirmBt) {
         })
         .then(dish => {
             //Konsole gibt aus obs richtig gespeichert wurde und b´gibt uns die dish auch aus
-            console.log("1. Erfolg! Backend hat das Gericht erstellt. Antwortdaten:", dish);
+            log("1. Erfolg! Backend hat das Gericht erstellt. Antwortdaten:", dish);
             currentDishId = dish.id; //merkt sich die ID vom Server
             //konsole gibt uns die dishId  zrk
-            console.log("2. Die Variable currentDishId ist jetzt:", currentDishId);
+            log("2. Die Variable currentDishId ist jetzt:", currentDishId);
 
             dishNameDialog.close();
             showScreen('groups', 'Food Groups');
@@ -264,10 +264,10 @@ if (modalConfirmBt && amountDialog) {
     modalConfirmBt.addEventListener('click', () => {
         const amount = modalGramInput.value;
         //gibt uns in der konsole zrk was grad apssiert um zu testen obs klappt
-        console.log("3. 'Add' geklickt. Überprüfe Daten vor dem Absenden:");
-        console.log("   - currentDishId (Gericht):", currentDishId);
-        console.log("   - selectedIngredient (Zutat):", selectedIngredient);
-        console.log("   - Eingegebene Menge:", amount);
+        log("3. 'Add' geklickt. Überprüfe Daten vor dem Absenden:");
+        log("   - currentDishId (Gericht):", currentDishId);
+        log("   - selectedIngredient (Zutat):", selectedIngredient);
+        log("   - Eingegebene Menge:", amount);
 
         if (amount && amount > 0 && selectedIngredient && currentDishId) {
             // POST ans Backend senden, um Zutat an das Dish zu hängen
@@ -286,8 +286,8 @@ if (modalConfirmBt && amountDialog) {
             })
             .then(data => {
                 //konsolen ausgaben zum testen obs klappt
-                console.log("4. Zutat erfolgreich gemappt! Backend-Antwort:", data);
-                console.log(`5. Leite weiter zu: /pot.html?dishId=${currentDishId}`);
+                log("4. Zutat erfolgreich gemappt! Backend-Antwort:", data);
+                log(`5. Leite weiter zu: /pot.html?dishId=${currentDishId}`);
 
                 amountDialog.close();
                 // Direkt zur Topf-Seite wechseln und die dishId mitschicken!

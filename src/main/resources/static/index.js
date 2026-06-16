@@ -14,25 +14,22 @@ const registerForm = document.getElementById('registerForm');
 // Wenn der  Button geklickt wird -> Dialog als Modal (Pop-up) öffnen
 //Log in!
 authBt.addEventListener('click', () => {
-    console.log("Login clicked");
     loginDialog.showModal();
 });
 
 registerBt.addEventListener('click', () => {
-    console.log("Register clicked");
     registerDialog.showModal();
 });
 
 // Wenn der "Cancel" Button geklickt wird -> Dialog wieder schließen
 //login
 cancelLogin.addEventListener('click', () => {
-    console.log("Login canceled");
     loginDialog.close();
 });
 
 //register
 cancelRegister.addEventListener('click', () => {
-    console.log("Register canceled");
+    log("Register canceled");
     registerDialog.close();
 });
 
