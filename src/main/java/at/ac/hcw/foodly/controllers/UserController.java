@@ -39,6 +39,23 @@ public class UserController {
 
     }
 
+    @GetMapping("/auth/status")
+    public ResponseEntity<?> checkStatus(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        String email = principal.getName();
+
+        UserModel user = userService.findByEmail(email);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("username", user.getName());
+        response.put("email", user.getEmail());
+        response.put("authenticated", true);
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/avatar")
     public ResponseEntity<?> getGravatarURL(Principal principal) {
         if (principal == null) {

@@ -7,53 +7,103 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
     <script type="module" src="index.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Foodly!!</h1>
-    </header>
+<header>
+    <h1>Foodly!</h1>
 
-    <main>
+</header>
+
+<nav aria-label="Main Navigation"></nav>
+
+<main>
+    <section id="guestView" class="view-section">
         <div class="login-welcome-container">
             <div class="welcome-buttons">
                 <button id="authBt">Log in!</button>
                 <button id="registerBt">Sign up!</button>
             </div>
         </div>
-    </main>
+    </section>
+    <section id="userView" class="view-section" style="display: none;">
+        <div class="dashboard-container">
+            <h2 id="welcomeGreeting">Welcome!</h2>
 
-    <footer>
-        <p>Fish & Chips</p>
-    </footer>
-
-    <dialog id="loginDialog">
-        <form id="loginForm" action="/api/login" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <div class="button-container">
-                <button type="submit">Login</button>
-                <button type="button" id="cancelLogin">Cancel</button>
+            <img id="userAvatar" class="user-avatar" src="" alt="Your Avatar" style="display: none;">
+            <div class="dashboard-actions">
+                <button type="button" id="cookingBoardBt" class="btn-primary">Let's start cooking!</button>
+                <button type="button" id="logoutBt" class="btn-secondary">Logout</button>
             </div>
-        </form>
-    </dialog>
 
-    <dialog id="registerDialog">
-        <form id="registerForm">
-            <label for="regName">Name:</label>
-            <input type="text" id="regName" name="name" required>
-            <label for="regEmail">Email:</label>
-            <input type="email" id="regEmail" name="email" required>
-            <label for="regPassword">Password:</label>
-            <input type="password" id="regPassword" name="password" required>
-            <div class="button-container">
-                <button type="submit">Register</button>
-                <button type="button" id="cancelRegister">Cancel</button>
-            </div>
-        </form>
-    </dialog>
+            <section id="inspirationSection" class="inspiration-box">
+                <h3>Need some Inspiration?</h3>
+                <div id="inspirationCard" class="inspiration-card">
+                    <p>Loading today's suggestion...</p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-logo-container">
+        <img src="/images/fish.png" alt="Fish" class="footer-logo">
+        <p> & </p>
+        <img src="/images/chip.png" alt="Chips" class="footer-logo">
+    </div>
+
+</footer>
+
+<dialog id="loginDialog">
+    <form id="loginForm" action="/api/login" method="POST">
+        <h3>Login</h3>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <div class="button-container">
+            <button type="submit">Login</button>
+            <button type="button" id="cancelLogin">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="registerDialog">
+    <form id="registerForm">
+        <h3>Sign Up</h3>
+        <label for="regName">Name:</label>
+        <input type="text" id="regName" name="name" required>
+
+        <label for="regEmail">Email:</label>
+        <input type="email" id="regEmail" name="email" required>
+
+        <label for="regPassword">Password:</label>
+        <input type="password" id="regPassword" name="password" required>
+
+        <div class="button-container">
+            <button type="submit">Register</button>
+            <button type="button" id="cancelRegister">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="dishNameDialog">
+    <div class="modal-content">
+        <h3>Name your dish!</h3>
+        <p>What are we cooking today?</p>
+        <label for="dishNameInput" class="visually-hidden">Dish Name</label>
+        <input type="text" id="dishNameInput" placeholder="e.g. Grandma's Lentil Soup" required>
+        <div class="modal-buttons">
+            <button type="button" id="dishNameCancelBt">Cancel</button>
+            <button type="button" id="dishNameConfirmBt">Start Cooking</button>
+        </div>
+    </div>
+</dialog>
 
 </body>
 </html>

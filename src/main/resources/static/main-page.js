@@ -1,18 +1,10 @@
 // Elemente aus der html datei hole
-const cookingBoardBt = document.getElementById('cookingBoardBt');
-
-const logoutBt = document.getElementById('logoutBt');
 const universalBackBt = document.getElementById('universalBackBt');
 const universalNextBt = document.getElementById('universalNextBt');
 const globalSearchInput = document.getElementById('globalSearchInput');
 const globalSearchBt = document.getElementById('globalSearchBt');
 let screenHistory = []; // Damit er weiß wohin zurück
 
-//Modal Elemente vom dish Name
-const dishNameDialog = document.getElementById('dishNameDialog');
-const dishNameInput = document.getElementById('dishNameInput');
-const dishNameCancelBt = document.getElementById('dishNameCancelBt');
-const dishNameConfirmBt = document.getElementById('dishNameConfirmBt');
 let currentDishId = null; // Die ID des aktuell erstellten Gerichts merken
 
 //Modal Elemente für amount dialog
@@ -36,7 +28,6 @@ const ingredientsListDiv = document.getElementById('ingredients-list')
 
 //alle screens in einer liste speichern
 const screens = {
-    start: document.getElementById('screen-start'),
     groups: document.getElementById('screen-groups'),
     cooking: document.getElementById('screen-cooking'),
 };
@@ -221,54 +212,6 @@ function fetchFoodGroups() {
 
 //EventListener
 
-//auf Let's cook Klicken -> wechselt zu den Foodgroups und lädt die Gruppen
-if (cookingBoardBt) {
-    cookingBoardBt.addEventListener('click', () => {
-        dishNameInput.value = "";
-        dishNameDialog.showModal();
-    });
-}
-
-if(dishNameCancelBt) {
-    dishNameCancelBt.addEventListener('click', () => {dishNameDialog.close();});
-}
-
-//Dish im Backend erstellen
-if(dishNameConfirmBt) {
-    dishNameConfirmBt.addEventListener('click', () => {
-        const name = dishNameInput.value.trim();
-        if(!name) {
-            alert("Please enter a name!");
-            return;
-        }
-
-        fetch('/api/dish', {
-            method: 'POST',
-            headers: { 'Content-Type':'application/json' },
-            body: JSON.stringify({name: name})
-        })
-        .then(response => {
-            if(!response.ok) throw new Error("Dish could not be created!");
-            return response.json();
-        })
-        .then(dish => {
-            //Konsole gibt aus obs richtig gespeichert wurde und b´gibt uns die dish auch aus
-            log("1. Erfolg! Backend hat das Gericht erstellt. Antwortdaten:", dish);
-            currentDishId = dish.id; //merkt sich die ID vom Server
-            //konsole gibt uns die dishId  zrk
-            log("2. Die Variable currentDishId ist jetzt:", currentDishId);
-
-            dishNameDialog.close();
-            showScreen('groups', 'Food Groups');
-            fetchFoodGroups();
-        })
-        .catch(error => {
-            console.error("Failed to create dish: ", error);
-            alert("Failed to create dish!");
-        });
-    });
-}
-
 
 // Zutat zum Gericht hinzufügen (POST an /api/dish/{dishId}/ingredients)
 if (modalConfirmBt && amountDialog) {
@@ -347,25 +290,6 @@ if (cookingToPotBt) {
 //    });
 //});
 
-//Logout Button
-if (logoutBt) {
-    logoutBt.addEventListener('click', () => {
-        // Logout per GET
-        fetch('/logout', {
-            method: 'GET'
-        })
-        .then(response => {
-            //Nutzer geht zurück zum Login-Bildschirm
-            window.location.href = '/';
-        })
-        .catch(error => {
-            console.error('Issues logging out:', error);
-            // Zurück zum Login erzwingen
-            window.location.href = '/';
-        });
-    });
-}
-
 
 //Back Button
 if (universalBackBt) {
@@ -387,10 +311,7 @@ if (universalNextBt) {
         // Finden, welcher Screen gerade aktiv ist
         const currentScreenKey = Object.keys(screens).find(key => screens[key] && screens[key].classList.contains('active'));
 
-        if (currentScreenKey === 'start') {
-            // Falls man von Start weiter klickt, auch nach Namen fragen
-            dishNameDialog.showModal();
-        } else if (currentScreenKey === 'groups') {
+        if (currentScreenKey === 'groups') {
             // Von Gruppen geht es zur Koch-Anzeige
             showScreen('cooking', 'COOKING');
         } else if (currentScreenKey === 'cooking') {
@@ -499,7 +420,7 @@ if (urlParams.get('dishId')) {
     showScreen('groups', 'Food Groups');
     fetchFoodGroups();
 } else {
-    showScreen('start', 'Foodly');
+    window.location.href = '/index.html';
 }
 
 // Beim Laden der Seite direkt den Avatar des Session-Users holen

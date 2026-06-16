@@ -19,11 +19,11 @@ public class TMDB_RecipeDTO {
         this.recipeName = recipeName;
     }
 
-    public String getRecipethumbnail() {
+    public String getRecipeThumbnail() {
         return recipethumbnail;
     }
 
-    public void setRecipethumbnail(String recipethumbnail) {
+    public void setRecipeThumbnail(String recipethumbnail) {
         this.recipethumbnail = recipethumbnail;
     }
 
