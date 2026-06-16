@@ -61,3 +61,13 @@ article {
 #authBt:active, #registerBt:active {
     transform: scale(0.95);
 }
+
+
+.dish-ui-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain; /* Prevents squishing or stretching */
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
