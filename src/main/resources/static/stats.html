@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodly - Statistics</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/stats.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script type="module" src="stats.js"></script>
+</head>
+<body>
+    <header>
+        <button id="statsBackBt" class="back-bt">↻ Back</button>
+        <h1>Dish Statistics</h1>
+        <div class="header-right">
+            <img id="userAvatar" class="user-avatar" src="" alt="Avatar" style="display: none;">
+        </div>
+    </header>
+    <main>
+        <section id="screen-stats" class="app-screen active">
+            <div class="stats-container">
+                <h2 id="statsDishTitle">Dish Name</h2>
+
+                <div class="chart-box">
+                    <canvas id="macrosChart"></canvas>
+                </div>
+
+                <div class="info-card">
+                    <h3>Total Energy</h3>
+                    <p id="totalCaloriesDisplay">0 kcal</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Fish & Chips</p>
+    </footer>
+</body>
+</html>

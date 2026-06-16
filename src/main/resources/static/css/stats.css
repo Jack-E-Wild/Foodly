@@ -1,0 +1,57 @@
+.stats-container {
+    padding: 20px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#statsDishTitle {
+    color: #4A3525;
+    margin-bottom: 20px;
+}
+
+/* Die Box für das Diagramm begrenzen, sonst wird es riesig */
+.chart-box {
+    position: relative;
+    margin: 0 auto 30px auto;
+    height: 300px;
+    width: 300px;
+}
+
+.info-card {
+    background-color: #fdfaf4;
+    border: 2px solid #b59975;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.info-card h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #8fa3ad;
+}
+
+#totalCaloriesDisplay {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4A3525;
+    margin: 10px 0 0 0;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; /* Schiebt Suche und Avatar ganz nach rechts */
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%; /* Macht das Bild kreisrund */
+    border: 2px solid #b59975;
+    object-fit: cover;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
