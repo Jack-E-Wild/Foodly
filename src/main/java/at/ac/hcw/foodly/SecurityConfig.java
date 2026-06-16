@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // erlaubt restcalls
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/**", "/error/**").permitAll() //löschen am Ende
+                        .requestMatchers("/images/**").permitAll() //images
                         .requestMatchers("/index.html", "/index.js", "/css/**").permitAll() // startseite muss man anpassen
                         .requestMatchers("/api/public/**", "/api/users/register", "/").permitAll()                     // andere öffentliche endpunkte
                         .anyRequest().authenticated()                                      // ALLES andere braucht einen Login!
