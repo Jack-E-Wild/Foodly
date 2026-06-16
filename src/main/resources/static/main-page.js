@@ -277,7 +277,14 @@ if (modalConfirmBt && amountDialog) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     id: selectedIngredient.id,
-                    amount: amount
+                    amount: amount,
+                    name : selectedIngredient.name,
+                    calories : selectedIngredient.calories,
+                    fibers : selectedIngredient.fibers,
+                    protein : selectedIngredient.protein,
+                    carbs : selectedIngredient.carbs,
+                    fats : selectedIngredient.fats
+
                 })
             })
             .then(response => {
@@ -430,7 +437,8 @@ if (globalSearchInput) {
 
                     button.addEventListener('click', () => {
                         // Speichert jetzt auch die id des Suchergebnisses mit ab
-                        selectedIngredient = { id: item.id, ingrName: item.description };
+                        selectedIngredient = { name : item.description, calories: item.calories, fibers: item.fibers, protein : item.protein, carbs: item.carbs, fats: item.fats };
+                        log(selectedIngredient);
                         modalIngredientName.innerText = item.description;
                         modalGramInput.value = "";
                         amountDialog.showModal();
