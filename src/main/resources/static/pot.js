@@ -134,7 +134,7 @@ function loadPotData() {
             log("=== VIRTUAL POT DATEN VOM BACKEND ===");
             log("Komplette Antwort (data):", data);
 
-           DELETE: Zutat aus dem Gericht löschen (/api/dish/{dishId}/ingredients/{ingredientId})
+            //DELETE: Zutat aus dem Gericht löschen (/api/dish/{dishId}/ingredients/{ingredientId})
             li.querySelector('.delete-ingredient-bt').addEventListener('click', () => {
                 if(confirm(`Remove ${ingredientName}?`)) {
                     fetch(`/api/dish/${dishId}/ingredients/${item.id}`, {
