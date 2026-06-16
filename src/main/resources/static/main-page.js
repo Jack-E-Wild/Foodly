@@ -109,6 +109,17 @@ function showScreen(screenKey, titleText, isBackAction = false) {
     if (globalSearchBt) {
         globalSearchBt.style.display = screenKey !== 'start' ? "block" : "none";
     }
+
+    const macroContainer = document.querySelector('.macro-container');
+        if (macroContainer) {
+        if (screenKey === 'groups') {
+        // Nur auf Food Groups zeigen
+        macroContainer.classList.remove('hidden');
+        } else {
+        // überall sonst unsichtbar machen
+        macroContainer.classList.add('hidden');
+        }
+        }
 }
 
 //Zutaten für eine bestimmte group laden
