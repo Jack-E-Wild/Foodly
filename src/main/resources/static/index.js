@@ -215,8 +215,7 @@ dishNameConfirmBt.addEventListener('click', () => {
         })
         .then(dish => {
             dishNameDialog.close();
-            // weiterleitung an maincooking.html mit URL-Parameter, zum weitergeben von id
-            window.location.href = `/maincooking.html?dishId=${dish.id}`;
+            window.location.href = `/main-page.html?dishId=${dish.id}`;
         })
         .catch(error => {
             console.error("Failed to create dish: ", error);

@@ -17,12 +17,6 @@ article {
     margin: 8px;
 }
 
-#loginForm, #registerForm {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 250px;
-}
 
 .welcome-buttons {
     display: flex;
@@ -32,32 +26,88 @@ article {
 }
 
 
-.login-welcome-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-}
-#authBt, #registerBt{
-    width: 180px;
-    height: 180px;
+/*modal styling */
 
-    border-radius: 50%;
+dialog, .modal {
     border: none;
-
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
-    background: #A3B899;
-
-    cursor: pointer;
-
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-
-    transition: transform 0.1s ease;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
+    background-color: #ffffff;
 }
 
-#authBt:active, #registerBt:active {
-    transform: scale(0.95);
+/* Der graue, abgedunkelte Hintergrund */
+dialog::backdrop, .modal-backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Inhalt im Modal (Formulare oder Layout-Boxen) */
+dialog form, .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 260px;
+}
+
+.modal-content h3, dialog h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #4A3525; /* Euer gewohnter Braunton */
+}
+
+/* Inputs und Dropdowns (Selects) im Modal */
+.modal-content input, dialog input,
+.modal-content select, dialog select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Button-Reihe nebeneinander */
+.button-container, .modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Basis-Design für alle Modal-Knöpfe */
+.button-container button, .modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* --- BUTTON-FARBEN --- */
+
+/* 1. Standard/Bestätigen-Buttons (Salbeigrün wie im Index) */
+.button-container button[type="submit"],
+.modal-buttons button:not(.cancel-btn):not([id*="Cancel"]) {
+    background-color: #A3B899;
+    color: white;
+}
+
+.button-container button[type="submit"]:hover,
+.modal-buttons button:not(.cancel-btn):not([id*="Cancel"]):hover {
+    background-color: #8E9F85;
+}
+
+/* 2. Abbrechen-Buttons (Neutrales Grau wie im Index) */
+.button-container button.cancel,
+.modal-buttons .cancel-btn,
+.modal-buttons button[id*="Cancel"] {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.button-container button.cancel:hover,
+.modal-buttons .cancel-btn:hover,
+.modal-buttons button[id*="Cancel"]:hover {
+    background-color: #d5d5d5;
 }
