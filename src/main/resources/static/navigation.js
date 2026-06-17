@@ -55,7 +55,7 @@ export function renderNavigationMenu(currentScreen, dishId) {
             text: '🔄 Restart',
             class: 'nav-btn-restart',
             action: () => {
-                if (confirm("Are you sure you want to restart? You will delete this dish with al it's ingredients!")) {
+                if (confirm("Are you sure you want to restart? You will delete this dish with all it's ingredients!")) {
                   if (dishId) {
                       // Schickt den DELETE-Request an dein Backend (z.B. /api/dish/1)
                       fetch(`/api/dish/${dishId}`, {
