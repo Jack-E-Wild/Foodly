@@ -132,3 +132,8 @@ body #app-navigation-menu.global-nav-menu {
        transform: none !important;
        margin: 30px auto !important;
 }
+@media (min-width: 768px) {
+   #screen-groups, #screen-cooking {
+       width: 800px
+   }
+}
