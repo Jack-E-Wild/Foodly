@@ -86,11 +86,11 @@ export function renderNavigationMenu(currentScreen, dishId) {
     let buttonsToRender = [];
 
     if (currentScreen === 'groups' || currentScreen === 'cooking') {
-        buttonsToRender = [allButtons.restart, allButtons.pot, allButtons.stats];
+        buttonsToRender = [allButtons.pot, allButtons.stats, allButtons.restart];
     } else if (currentScreen === 'pot') {
-        buttonsToRender = [allButtons.restart, allButtons.addMore, allButtons.stats];
+        buttonsToRender = [allButtons.addMore, allButtons.stats, allButtons.restart ];
     } else if (currentScreen === 'stats') {
-        buttonsToRender = [allButtons.restart, allButtons.addMore, allButtons.pot];
+        buttonsToRender = [allButtons.addMore, allButtons.pot, allButtons.restart];
     }
 
     // Die 3 ermittelten Buttons in das HTML einbauen
