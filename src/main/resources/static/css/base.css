@@ -50,6 +50,5 @@ body {
     object-fit: cover !important;
     border: 2px solid #b59975 !important; /*  Ein feiner Foodly-brauner Rahmen */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    align: right;
 }
 
