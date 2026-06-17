@@ -156,4 +156,4 @@ function loadPotData() {
 
 // Beim Laden der Seite direkt ausführen
 loadPotData();
-loadUserAvatar();
+//loadUserAvatar();
