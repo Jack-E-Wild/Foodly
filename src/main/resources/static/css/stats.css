@@ -5,6 +5,18 @@
     margin: 0 auto;
 }
 
+.user-avatar {
+    display: block ;
+    margin: 0 auto 15px auto ; /* Oben 0, Links/Rechts AUTO (zentriert!), Unten 15px Platz */
+
+    /* Hier kannst du die Größe für die Statistik-Seite anpassen,
+       falls 40px über dem Titel zu klein wirken: */
+    width: 65px ;
+    height: 65px ;
+    border-radius: 50% ;
+    object-fit: cover ;
+}
+
 #statsDishTitle {
     color: #4A3525;
     margin-bottom: 20px;
