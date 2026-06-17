@@ -177,6 +177,12 @@ function fetchFoodGroups() {
             const button = document.createElement("button");
             button.className = "group-card";
             button.textContent = group.fgName;
+
+            //für styling -- Hintergrundfarbe hinzufügen
+            // Macht aus "Food Groups" -> "group-food-groups" oder aus "Carbs" -> "group-carbs"
+            const groupClassName = `group-${group.fgName.toLowerCase().replace(/\s+/g, '-')}`;
+            button.classList.add(groupClassName);
+
             //food group icons
             const baseIconPath = '/images/';
             const iconFilename = group.fgIcon;
@@ -189,6 +195,21 @@ function fetchFoodGroups() {
             //IDs und Namen kommen als Attribute rein
             button.setAttribute("data-id", group.id);
             button.setAttribute("data-group", group.fgName.toLowerCase());
+
+            //farben für food groups definieren und zuweisen
+            const groupKey = group.fgName.toLowerCase();
+
+            if (groupKey.includes('carb')) {
+                button.style.backgroundColor = '#efd298'; // Beige
+            } else if (groupKey.includes('fiber')) {
+                button.style.backgroundColor = '#53695c'; // Dunkelgrün
+            } else if (groupKey.includes('fat')) {
+                button.style.backgroundColor = '#c4cea9'; // Hellgrün
+            } else if (groupKey.includes('protein')) {
+                button.style.backgroundColor = '#da6b60'; // Rot
+            } else {
+                button.style.backgroundColor = '#b59975'; // Fallback: Foodly-Braun
+            }
 
             //Klick-Event-Listener an den neu erstellten Button hängen
             button.addEventListener('click', () => {
