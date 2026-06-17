@@ -1,3 +1,6 @@
+//importiert von navigation.js
+import { renderNavigationMenu,loadUserAvatar } from './navigation.js';
+
 // Elemente aus der html datei hole
 const universalBackBt = document.getElementById('universalBackBt');
 const universalNextBt = document.getElementById('universalNextBt');
@@ -19,7 +22,7 @@ let selectedIngredient = null;
 const goToPotBt = document.getElementById('goToPotBt');
 const goToStatsBt = document.getElementById('goToStatsBt');
 const cookingToPotBt = document.getElementById('cookingToPotBt');
-const userAvatar = document.getElementById('userAvatar');
+
 
 // Wir holen das h1-Element direkt aus dem Header, da es keine ID hat
 const pageTitle = document.querySelector('header h1');
@@ -32,28 +35,6 @@ const screens = {
     cooking: document.getElementById('screen-cooking'),
 };
 
-//Funktion zum Laden des Avatars
-function loadUserAvatar() {
-    // GET-Request an den neuen, sauberen Endpunkt
-    fetch('/api/users/avatar', {
-        method: 'GET'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to load avatar');
-        }
-        return response.json(); // Erwartet: { "avatar": "https://..." }
-    })
-    .then(data => {
-        if (data && data.avatar && userAvatar) {
-            userAvatar.src = data.avatar; // Die Gravatar-URL ins <img> Tag klatschen
-            userAvatar.style.display = "block"; // Bild sichtbar machen
-        }
-    })
-    .catch(error => {
-        console.error("Fehler beim Laden des Gravatars:", error);
-    });
-}
 
 //Zentrale Funktion zum wechseln der Screens
 function showScreen(screenKey, titleText, isBackAction = false) {
@@ -81,14 +62,14 @@ function showScreen(screenKey, titleText, isBackAction = false) {
     }
 
     // Back Button auf Startseite ausblenden
-    if (universalBackBt) {
-        universalBackBt.style.display = screenHistory.length > 0 ? "block" : "none";
-    }
+//    if (universalBackBt) {
+//        universalBackBt.style.display = screenHistory.length > 0 ? "block" : "none";
+//    }
 
     //Next Button ein-/ausblenden
-    if (universalNextBt) {
-        universalNextBt.style.display = (screenKey === 'start' || screenKey === 'groups' || screenKey === 'cooking') ? "block" : "none";
-    }
+//    if (universalNextBt) {
+//        universalNextBt.style.display = (screenKey === 'start' || screenKey === 'groups' || screenKey === 'cooking') ? "block" : "none";
+//    }
 
 
     // Suchfeld auf Startseite ausblenden
@@ -102,15 +83,25 @@ function showScreen(screenKey, titleText, isBackAction = false) {
     }
 
     const macroContainer = document.querySelector('.macro-container');
-        if (macroContainer) {
+    if (macroContainer) {
         if (screenKey === 'groups') {
-        // Nur auf Food Groups zeigen
-        macroContainer.classList.remove('hidden');
+            // Nur auf Food Groups zeigen
+            macroContainer.classList.remove('hidden');
         } else {
-        // überall sonst unsichtbar machen
-        macroContainer.classList.add('hidden');
+            // überall sonst unsichtbar machen
+            macroContainer.classList.add('hidden');
         }
-        }
+    }
+
+    //navigationsmenü
+    const navContainer = document.getElementById('app-navigation-menu');
+    if (screenKey === 'start') {
+        // Auf dem Startbildschirm verstecken wir das Menü komplett!
+        if (navContainer) navContainer.innerHTML = '';
+    } else if (screenKey === 'groups' || screenKey === 'cooking') {
+        // Übergibt den aktuellen Screen-Namen und die ID im Speicher
+        renderNavigationMenu(screenKey, currentDishId);
+    }
 }
 
 //Zutaten für eine bestimmte group laden

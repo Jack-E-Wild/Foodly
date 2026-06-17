@@ -1,4 +1,6 @@
-const userAvatar = document.getElementById('userAvatar');
+//import navogationsmenü
+import { renderNavigationMenu, loadUserAvatar } from './navigation.js';
+
 const statsBackBt = document.getElementById('statsBackBt');
 const statsDishTitle = document.getElementById('statsDishTitle');
 const totalCaloriesDisplay = document.getElementById('totalCaloriesDisplay');
@@ -7,28 +9,6 @@ const totalCaloriesDisplay = document.getElementById('totalCaloriesDisplay');
 const urlParams = new URLSearchParams(window.location.search);
 const dishId = urlParams.get('dishId');
 
-//Funktion zum Laden des Avatars
-function loadUserAvatar() {
-    // GET-Request an den neuen, sauberen Endpunkt
-    fetch('/api/users/avatar', {
-        method: 'GET'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to load avatar');
-        }
-        return response.json(); // Erwartet: { "avatar": "https://..." }
-    })
-    .then(data => {
-        if (data && data.avatar && userAvatar) {
-            userAvatar.src = data.avatar; // Die Gravatar-URL ins <img> Tag klatschen
-            userAvatar.style.display = "block"; // Bild sichtbar machen
-        }
-    })
-    .catch(error => {
-        console.error("Fehler beim Laden des Gravatars:", error);
-    });
-}
 
 function loadStatsData() {
     if (!dishId) {
@@ -63,6 +43,8 @@ function loadStatsData() {
         } else {
             console.warn("STATS-WARNUNG: 'macroPercentages' ist leer oder undefined im JSON!");
         }
+        //navigationsmenü
+        renderNavigationMenu('stats', dishId);
     })
     .catch(error => console.error("Fehler beim Laden der Stats:", error));
 }
@@ -114,9 +96,6 @@ function createChart(macros) {
     });
 }
 
-statsBackBt.addEventListener('click', () => {
-    window.location.href = `/pot.html?dishId=${dishId}`;
-});
 
 // Initialisieren
 loadUserAvatar();

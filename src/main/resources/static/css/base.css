@@ -7,3 +7,49 @@ body {
 .fill-carbs   { background-color: #EFD298; }
 .fill-fats    { background-color: #C4CEA9; }
 .fill-fibers  { background-color: #53695C; }
+
+.main-header {
+    display: flex;
+    align-items: center;    /* Zentriert alle Elemente vertikal auf einer Linie */
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: #FFF4BD; /* Beispiel-Hintergrundfarbe */
+}
+
+/* Alle drei Hauptbereiche bekommen die gleiche Basis-Breite */
+.header-left,
+.header-center,
+.header-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* Richtet den Inhalt der linken Box linksbündig aus */
+.header-left {
+    justify-content: flex-start;
+}
+
+/* Richtet die Überschrift in der Mitte absolut zentriert aus */
+.header-center {
+    justify-content: center;
+}
+
+/* Die rechte Box spiegelt die linke Box, damit die Mitte nicht verschoben wird */
+.header-right {
+    justify-content: flex-end;
+}
+
+/* Das einheitliche Design für deinen Gravatar */
+.user-avatar {
+    width: 45px ;      /* Feste, einheitliche Breite */
+    height: 45px ;     /* Feste, einheitliche Höhe */
+    border-radius: 50% !important; /* Macht den Avatar perfekt kreisrund */
+    object-fit: cover !important;
+    border: 2px solid #b59975 !important; /*  Ein feiner Foodly-brauner Rahmen */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align: right;
+}
+

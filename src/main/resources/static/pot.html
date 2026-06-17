@@ -8,18 +8,19 @@
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/pot.css">
     <link rel="stylesheet" href="/css/macro-chart.css">
+    <link rel="stylesheet" href="/css/navigation.css">
     <script src="logger.js"></script>
     <script src="updateMacroChart.js"></script>
     <script type="module" src="pot.js"></script>
 </head>
 <body>
-<header>
-    <button id="potBackBt" class="back-bt">↻ Back</button>
-    <h1>Virtual Pot</h1>
-
+<header class="main-header">
+    <div class="header-left"><h1>Virtual Pot</h1></div>
+    <div class="header-center"></div>
     <div class="header-right">
         <img id="userAvatar" class="user-avatar" src="" alt="Avatar" style="display: none;">
     </div>
+
     <div class="macro-container">
 
         <div class="bar-track total-ratio-track">
@@ -77,11 +78,7 @@
     <section id="screen-pot" class="app-screen active">
         <h2>Your Virtual Pot</h2>
         <div id="pot-ingredients-container"></div>
-
-        <div class="pot-navigation-buttons">
-            <button id="potAddMoreBt">Add more ingredients</button>
-            <button id="potToStatsBt" class="next-bt">Go to Stats ➔</button>
-        </div>
+        <div id="app-navigation-menu" ></div>
     </section>
 </main>
 <footer>

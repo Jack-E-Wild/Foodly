@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/stats.css">
+    <link rel="stylesheet" href="/css/navigation.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <script type="module" src="stats.js"></script>
 </head>
 <body>
-    <header>
-        <button id="statsBackBt" class="back-bt">↻ Back</button>
-        <h1>Dish Statistics</h1>
+    <header class="main-header">
+        <div class="header-left"> <h1>Dish Statistics</h1></div>
+        <div class="header-center"></div>
         <div class="header-right">
             <img id="userAvatar" class="user-avatar" src="" alt="Avatar" style="display: none;">
         </div>
@@ -26,7 +27,7 @@
                 <div class="chart-box">
                     <canvas id="macrosChart"></canvas>
                 </div>
-
+                <div id="app-navigation-menu"></div>
                 <div class="info-card">
                     <h3>Total Energy</h3>
                     <p id="totalCaloriesDisplay">0 kcal</p>

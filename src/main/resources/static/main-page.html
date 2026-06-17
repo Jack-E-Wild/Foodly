@@ -4,28 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodly - Dashboard</title>
-    <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/main-page.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/macro-chart.css">
+    <link rel="stylesheet" href="/css/navigation.css">
     <script src="logger.js"></script>
     <script src="updateMacroChart.js"></script>
     <script type="module" src="main-page.js"></script>
 </head>
 <body>
-    <header>
-        <button id="universalBackBt" class="back-bt" style="display: none;">↻ Back</button>
-        <h1>Foodly</h1>
-
+    <header class="main-header">
+        <div class="header-left"><h1>Foodly</h1></div>
+        <div class="header-center"></div>
         <div class="header-right">
             <img id="userAvatar" class="user-avatar" src="" alt="Avatar" style="display: none;">
-            <button id="universalNextBt" class="next-bt" style="display: none;">Forward ➔</button>
         </div>
     </header>
     <main>
-
         <section id="screen-groups" class="app-screen">
             <div class="total-ratio-track">
                 <div id="bar-protein" class="bar fill-protein"></div>
@@ -34,19 +32,8 @@
                 <div id="bar-fibers" class="bar fill-fibers"></div>
             </div>
             <div class="groups-grid" id="groups-container"></div>
-            <div class="dashboard-menu-buttons">
-                <button id="goToPotBt" class="menu-btn-pot">View Virtual Pot</button>
-                <button id="goToStatsBt" class="menu-btn-stats">View Statistics</button>
-            </div>
         </section>
-
-        <section id="screen-cooking" class="app-screen">
-            <h2>What do you want to add?</h2>
-            <div id="ingredients-list"></div>
-            <div class="dashboard-menu-buttons">
-                <button id="cookingToPotBt" class="menu-btn-pot">Go to Pot ➔</button>
-            </div>
-        </section>
+        <div id="app-navigation-menu"></div>
     </main>
     <footer>
         <p>Fish & Chips</p>
@@ -64,10 +51,11 @@
             </div>
         </div>
     </dialog>
+
     <div id="search-bar-bottom">
         <div class="search-wrapper">
-    <input type="text" id="globalSearchInput" placeholder="Search Ingredients here! " style="display: none;">
-    <button id="globalSearchBt" style="display: none;">Search</button>
+            <input type="text" id="globalSearchInput" placeholder="Search Ingredients here! " style="display: none;">
+            <button id="globalSearchBt" style="display: none;">Search</button>
         </div>
     </div>
 </body>

@@ -1,29 +1,18 @@
+//import navigationsmenü
+import { renderNavigationMenu,loadUserAvatar } from './navigation.js';
+
 const potIngredientsContainer = document.getElementById('pot-ingredients-container');
 const potAddMoreBt = document.getElementById('potAddMoreBt');
 const potToStatsBt = document.getElementById('potToStatsBt');
 const potBackBt = document.getElementById('potBackBt');
-const userAvatar = document.getElementById('userAvatar');
+
 const pageTitle = document.querySelector('header h1');
 
 // Die dishId aus der URL auslesen
 const urlParams = new URLSearchParams(window.location.search);
 const dishId = urlParams.get('dishId');
 
-//avatar laden
-function loadUserAvatar() {
-    fetch('/api/users/avatar', { method: 'GET' })
-    .then(response => {
-        if (!response.ok) throw new Error('Avatar konnte nicht geladen werden');
-        return response.json();
-    })
-    .then(data => {
-        if (data && data.avatar && userAvatar) {
-            userAvatar.src = data.avatar;
-            userAvatar.style.display = "block";
-        }
-    })
-    .catch(error => console.error("Fehler beim Laden des Gravatars:", error));
-}
+
 
 function loadPotData() {
     if (!dishId) {
@@ -83,6 +72,7 @@ function loadPotData() {
 
         if (ingredients.length === 0) {
             potIngredientsContainer.innerHTML = "<p style='text-align: center; color: #777;'>Your pot is empty. Add some ingredients!</p>";
+            renderNavigationMenu('pot', dishId); // Menü trotzdem rendern, damit man zurückkommt!
             return;
         }
 
@@ -152,6 +142,9 @@ function loadPotData() {
 
         potIngredientsContainer.innerHTML = "";
         potIngredientsContainer.appendChild(ul);
+
+        //navigationsmenü
+        renderNavigationMenu('pot', dishId);
     })
     .catch(error => {
         console.error("Fehler beim Laden des Topfes:", error);
@@ -159,34 +152,7 @@ function loadPotData() {
     });
 }
 
-// Navigationen
-potAddMoreBt.addEventListener('click', () => {
-    // Schickt den User zurück, hängt aber einen Parameter an, damit main-page direkt bei den Gruppen startet
-    window.location.href = `/main-page.html?dishId=${dishId}`;
-});
 
-potToStatsBt.addEventListener('click', () => {
-    //alert("Statistik-Seite kommt in Kürze!");
-
-    console.log("=== NAVIGATION ZU DEN STATISTIKEN ===");
-    console.log("Button 'Go to Stats' im Virtual Pot geklickt.");
-    console.log("Aktuelle dishId in pot.js vorhanden:", dishId);
-
-
-    if (dishId) {
-        console.log(`Leite erfolgreich weiter zu: /stats.html?dishId=${dishId}`);
-        console.log("======================================");
-        window.location.href = `/stats.html?dishId=${dishId}`;
-    } else {
-        console.warn("WARNUNG: Navigation abgebrochen, da keine dishId in der URL von pot.html gefunden wurde!");
-        console.log("======================================");
-        alert("No dish selected to show statistics for.");
-    }
-});
-
-potBackBt.addEventListener('click', () => {
-    window.location.href = `/main-page.html?dishId=${dishId}`;
-});
 
 // Beim Laden der Seite direkt ausführen
 loadPotData();

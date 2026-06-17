@@ -1,0 +1,38 @@
+/* Der Hauptcontainer innerhalb von <main> */
+#app-navigation-menu.global-nav-menu {
+    display: flex !important;
+    flex-direction: column !important; /* Erzwingt das Untereinander-Reihen */
+    gap: 15px !important;              /* Abstand zwischen den Kacheln */
+    width: 100% !important;
+    max-width: 450px !important;       /* Begrenzt die Breite wie im Mockup */
+    margin: 40px auto 20px auto !important; /* Abstand nach oben und unten */
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* Die großen, fetten Action-Buttons */
+#app-navigation-menu .nav-action-btn {
+    display: block !important;
+    width: 100% !important;            /* Nutzt die volle Breite der 450px */
+    padding: 18px 10px !important;     /* Macht die Knöpfe schön hoch/dick */
+    font-size: 1.2rem !important;      /* Kräftige Schriftgröße */
+    font-weight: bold !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 15px !important;    /* Schöne abgerundete Ecken */
+    cursor: pointer !important;
+    text-align: center !important;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15) !important;
+    transition: transform 0.1s ease, background-color 0.2s !important;
+}
+
+/* Klick-Effekt */
+#app-navigation-menu .nav-action-btn:active {
+    transform: translateY(2px) !important;
+}
+
+/* --- FARBEN AUS DEM MOCKUP --- */
+#app-navigation-menu .nav-btn-restart { background-color: #d9534f !important; }
+#app-navigation-menu .nav-btn-add { background-color: #93a29b !important; }
+#app-navigation-menu .nav-btn-pot { background-color: #b59975 !important; }
+#app-navigation-menu .nav-btn-stats { background-color: #8fa3ad !important; }
