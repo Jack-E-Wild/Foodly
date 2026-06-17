@@ -17,8 +17,9 @@
 </head>
 <body>
     <header class="main-header">
-        <div class="header-left"><h1>Foodly</h1></div>
+        <div class="header-left"></div>
         <div class="header-center"></div>
+            <h1>Foodly</h1>
         <div class="header-right">
             <img id="userAvatar" class="user-avatar" src="" alt="Avatar" style="display: none;">
         </div>
@@ -33,10 +34,21 @@
             </div>
             <div class="groups-grid" id="groups-container"></div>
         </section>
+
+        <section id="screen-cooking" class="app-screen">
+            <div id="ingredients-list"></div>
+
+            <button id="universalBackBt" class="btn-secondary back-btn-cooking">⬅ Back to Groups</button>
+        </section>
+
         <div id="app-navigation-menu"></div>
     </main>
     <footer>
-        <p>Fish & Chips</p>
+        <div class="footer-logo-container">
+            <img src="/images/fish.png" alt="Fish" class="footer-logo">
+            <p> & </p>
+            <img src="/images/chip.png" alt="Chips" class="footer-logo">
+        </div>
     </footer>
 
 

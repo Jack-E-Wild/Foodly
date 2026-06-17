@@ -52,3 +52,27 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+footer {
+    display: flex;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    background-color: #696969;
+    border-top: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.footer-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
+}
+
+
