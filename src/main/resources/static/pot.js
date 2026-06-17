@@ -49,7 +49,7 @@ function loadPotData() {
         // Den Namen des Gerichts im Titel anzeigen (und klickbar machen zum Bearbeiten!)
         // PATCH: Gerichtname ändern bei Klick auf den Titel
         if (pageTitle && dish) {
-            pageTitle.innerHTML = `<span id="dishTitleSpan" style="cursor: pointer;">🍲 ${dish.title || dish.name || 'Unnamed Dish'} ✏️</span>`;
+            pageTitle.innerHTML = `<span id="dishTitleSpan" style="cursor: pointer;">${dish.title || dish.name || 'Unnamed Dish'} ✏️</span>`;
 
             document.getElementById('dishTitleSpan').addEventListener('click', () => {
                 const currentName = dish.title || dish.name;
