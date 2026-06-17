@@ -445,4 +445,4 @@ if (urlParams.get('dishId')) {
 }
 
 // Beim Laden der Seite direkt den Avatar des Session-Users holen
-loadUserAvatar();
+//loadUserAvatar();
