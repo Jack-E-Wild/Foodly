@@ -53,12 +53,12 @@ public class DataInitializer implements CommandLineRunner {
             //weil das objekt erst die id beim erstellen in der datenbank bekommt
             FoodgroupModel proteins = foodgroupRepository
                     .save(new FoodgroupModel("Proteins", "proteins.png"));
-            FoodgroupModel fibers = foodgroupRepository
-                    .save(new FoodgroupModel("Fibers", "fibers.png"));
             FoodgroupModel carbs = foodgroupRepository
                     .save(new FoodgroupModel("Carbs", "carbs.png"));
             FoodgroupModel fats = foodgroupRepository
                     .save(new FoodgroupModel("Fats", "fats.png"));
+            FoodgroupModel fibers = foodgroupRepository
+                    .save(new FoodgroupModel("Fibers", "fibers.png"));
             //Ingredients
 
             IngredientModel beans = new IngredientModel(
